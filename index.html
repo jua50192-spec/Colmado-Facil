@@ -115,6 +115,39 @@
   .pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
   .pad button{padding:16px 0;font-size:24px;border-radius:14px;border:1px solid var(--borde);background:var(--fondo);font-weight:600}
   .pad button.chico{font-size:15px;background:#fff}
+  .solo-pc{display:none}
+
+  /* ===== PANTALLA GRANDE (PC / laptop) ===== */
+  @media (min-width: 900px){
+    body{padding-left:100px}
+    header{margin-left:-100px;padding-left:20px}
+    main{max-width:1280px;padding:16px 24px 32px}
+    .solo-pc{display:block}
+    /* Barra de pestañas a la izquierda */
+    nav{top:52px;bottom:0;right:auto;width:100px;display:flex;flex-direction:column;border-top:none;border-right:1px solid var(--borde);padding-top:8px}
+    nav button{padding:14px 4px;font-size:13px}
+    nav button.active{background:var(--verde-claro);border-right:3px solid var(--verde)}
+    /* Caja registradora: productos a la izquierda, venta a la derecha */
+    #tab-vender.active{display:grid;grid-template-columns:1fr 400px;grid-template-rows:auto 1fr;column-gap:20px}
+    #buscar{grid-column:1;grid-row:1;font-size:18px;padding:14px}
+    #gridProd{grid-column:1;grid-row:2;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));align-content:start}
+    #cartBox{grid-column:2;grid-row:1/3;margin-top:0;position:sticky;top:68px;align-self:start;max-height:calc(100vh - 84px);overflow:auto}
+    #cartBox .total{font-size:30px}
+    .pay button{padding:18px 4px;font-size:16px}
+    .prod{min-height:100px}
+    .prod:hover{border-color:var(--verde)}
+    /* Listas en dos columnas */
+    #listaProd,#listaClientes,#listaCuadre,#listaUsuarios{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+    #listaProd .row,#listaClientes .row,#listaUsuarios .row{margin-bottom:0}
+    .cards{grid-template-columns:repeat(4,1fr)}
+    .card.destacada,.card.caja{grid-column:span 2}
+    #tab-mercancia .dos{max-width:520px}
+    /* Ventanas en el centro */
+    .modal{align-items:center}
+    .box{border-radius:18px;max-width:540px}
+    #toast{bottom:28px}
+    .row.clic:hover,.pick button:hover,.opts button:hover{border-color:var(--verde)}
+  }
 </style>
 </head>
 <body>
@@ -141,6 +174,7 @@
         <button class="b-tra" onclick="pagar('transferencia')">🏦 Transfer.</button>
         <button class="b-fia" onclick="pagar('fiao')">📒 Fiao</button>
       </div>
+      <p class="nota solo-pc">⌨️ Escribe para buscar · <b>Enter</b> agrega · <b>Esc</b> cierra ventanas</p>
     </div>
   </section>
 
@@ -352,7 +386,42 @@ function aviso(txt) {
   clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
 }
 function abrirModal(html) { $('#modalBody').innerHTML = html; $('#modal').classList.remove('hidden'); }
-function cerrarModal() { $('#modal').classList.add('hidden'); }
+function cerrarModal() { $('#modal').classList.add('hidden'); enfocarBusqueda(); }
+
+/* ========= ATAJOS DE TECLADO (para PC) ========= */
+const esPC = () => window.matchMedia('(min-width: 900px)').matches;
+// En la PC el cursor vuelve solo al buscador (en el celular no, para que no salga el teclado)
+function enfocarBusqueda() {
+  if (esPC() && yo && tabActual === 'vender' && $('#modal').classList.contains('hidden')) $('#buscar').focus();
+}
+document.addEventListener('keydown', e => {
+  const modalAbierto = !$('#modal').classList.contains('hidden');
+  // Esc cierra la ventana abierta
+  if (e.key === 'Escape' && modalAbierto) { cerrarModal(); return; }
+  // Enter dentro de una ventana = botón verde principal (Cobrar, Guardar, Agregar)
+  if (e.key === 'Enter' && modalAbierto && e.target.tagName === 'INPUT' && $('#modalBody').contains(e.target)) {
+    e.preventDefault();
+    const b = $('#modalBody .pri'); if (b) b.click();
+    return;
+  }
+  // En Vender: escribir letras va directo al buscador
+  if (!modalAbierto && yo && tabActual === 'vender' && esPC() && document.activeElement !== $('#buscar')
+      && e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey && !/INPUT|SELECT|TEXTAREA/.test(document.activeElement.tagName)) {
+    $('#buscar').focus();
+  }
+});
+// Enter en el buscador agrega el primer producto encontrado
+document.getElementById('buscar').addEventListener('keydown', e => {
+  if (e.key !== 'Enter') return;
+  e.preventDefault();
+  e.stopPropagation();
+  const primero = $('#gridProd .prod');
+  if (!primero || !$('#buscar').value.trim()) return;
+  primero.click();
+  $('#buscar').value = '';
+  renderVender();
+  enfocarBusqueda();
+});
 
 /* ========= ENTRADA CON PIN ========= */
 let elegido = null, pin = '', fallos = 0, bloqueoHasta = 0;
@@ -428,6 +497,7 @@ function verTab(t) {
   document.querySelectorAll('.tab').forEach(x => x.classList.toggle('active', x.id === 'tab-' + t));
   render();
   window.scrollTo(0, 0);
+  enfocarBusqueda();
 }
 function render() {
   if (!yo) return;
@@ -487,6 +557,7 @@ function tocarProducto(pid) {
       <p id="vEquiv" class="info" style="display:none"></p>` : ''}
     ${vendeMayor(p) ? `<button class="mayor" onclick="agregarLinea('${pid}',${p.empaqueCant},'mayor',true)">📦 ${esc(p.empaqueNombre)} completo (${cant(p.empaqueCant, p.unidad)}) al por mayor · <b>${dinero(p.precioMayor)}</b></button>` : ''}
     <button class="sec full" onclick="cerrarModal()">Cancelar</button>`);
+  if (esPC()) $('#modalBody .opts button').focus(); // en la PC, Enter = 1 libra
   const vp = $('#vPesos');
   if (vp) vp.addEventListener('input', () => {
     const m = parseFloat(vp.value), e = $('#vEquiv');
@@ -540,12 +611,14 @@ function pagar(metodo) {
       d.textContent = r < t ? 'Faltan ' + dinero(t - r) : 'Devuelta: ' + dinero(r - t);
       d.className = 'devuelta ' + (r < t ? 'mal' : 'bien');
     });
+    if (esPC()) $('#recibido').focus();
   } else if (metodo === 'transferencia') {
     abrirModal(`
       <h3>🏦 Cobro por transferencia</h3>
       <p class="big">${dinero(t)}</p>
       <p>Confirma que la transferencia llegó antes de entregar la mercancía.</p>
       <div class="acts"><button class="sec" onclick="cerrarModal()">Cancelar</button><button class="pri" onclick="terminarVenta('transferencia')">Ya llegó, cobrar</button></div>`);
+    if (esPC()) $('#modalBody .pri').focus();
   } else {
     elegirClienteFiao();
   }
