@@ -19,10 +19,12 @@
   main{max-width:640px;margin:0 auto;padding:12px 16px 96px}
   .tab{display:none}.tab.active{display:block}
   h2{font-size:18px;margin:16px 0 8px}
-  input,select{width:100%;padding:12px;border:1px solid var(--borde);border-radius:10px;font-size:16px;background:#fff;font-family:inherit}
+  input,select{width:100%;padding:12px;border:1px solid var(--borde);border-radius:10px;font-size:16px;background:#fff;font-family:inherit;color:var(--texto)}
   label{display:block;margin:10px 0;font-size:14px;color:var(--gris)}
-  label input,label select{margin-top:4px;color:var(--texto)}
+  label input,label select{margin-top:4px}
   button{font-family:inherit;font-size:16px;cursor:pointer}
+  .enlinea{display:flex;gap:8px;margin-top:4px}
+  .enlinea input,.enlinea select{margin-top:0}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:10px}
   .prod{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:10px;text-align:left;display:flex;flex-direction:column;gap:4px;min-height:92px}
   .prod:active{background:var(--verde-claro)}
@@ -35,18 +37,20 @@
   .cart h2{margin-top:0}
   .line{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px dashed var(--borde)}
   .ln{flex:1;font-size:15px}
+  .ln small{display:block;color:var(--gris);font-size:13px}
   .qty{display:flex;align-items:center;gap:8px}
-  .qty button{width:34px;height:34px;border-radius:50%;border:1px solid var(--borde);background:var(--fondo);font-size:20px;line-height:1}
-  .lt{min-width:80px;text-align:right;font-weight:600}
+  .qty button{width:34px;height:34px;border-radius:50%;border:1px solid var(--borde);background:var(--fondo);font-size:18px;line-height:1}
+  .lt{min-width:76px;text-align:right;font-weight:600}
   .total{font-size:22px;text-align:right;margin:10px 0}
   .pay{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
   .pay button{padding:14px 4px;border:none;border-radius:10px;color:#fff;font-weight:700;font-size:15px}
   .b-efe{background:var(--verde)}.b-tra{background:#1565c0}.b-fia{background:var(--amarillo);color:#3b2a00!important}
   .cart.vacia .pay button{opacity:.4}
   .vacio{color:var(--gris);text-align:center;padding:12px}
-  .row{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:pointer}
+  .row{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px}
+  .row.clic{cursor:pointer}
   .row small{display:block;color:var(--gris);font-size:13px;margin-top:2px}
-  .badge{background:var(--verde-claro);color:var(--verde);border-radius:20px;padding:6px 12px;font-weight:700;white-space:nowrap}
+  .badge{background:var(--verde-claro);color:var(--verde);border-radius:20px;padding:6px 12px;font-weight:700;text-align:center;font-size:14px}
   .badge.bajo{background:var(--rojo-claro)}
   .badge.debe{background:#fff4d6;color:#7a5200}
   .pri,.sec,.del{padding:12px 16px;border-radius:10px;font-weight:600}
@@ -54,7 +58,13 @@
   .sec{background:#fff;color:var(--texto);border:1px solid var(--borde)}
   .del{background:var(--rojo-claro);color:var(--rojo);border:none}
   .full{width:100%;margin-top:8px}
+  .dos{display:grid;grid-template-columns:1fr 1fr;gap:8px}
   .acts{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:12px}
+  .opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0}
+  .opts button{padding:14px 8px;border:1px solid var(--borde);border-radius:12px;background:var(--verde-claro);display:flex;flex-direction:column;align-items:center;gap:2px}
+  .opts button b{font-size:20px}
+  .opts button small{color:var(--verde);font-weight:700}
+  .mayor{width:100%;padding:14px;border:2px dashed var(--verde);border-radius:12px;background:#fff;margin-top:8px;font-size:15px}
   .cards{display:grid;grid-template-columns:1fr 1fr;gap:8px}
   .card{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:12px}
   .card small{color:var(--gris);display:block}
@@ -68,13 +78,14 @@
   .cuadre .fila{display:flex;justify-content:space-between;font-size:14px;padding:3px 0}
   .cuadre .fila.caja{border-top:1px dashed var(--borde);margin-top:6px;padding-top:8px;font-weight:700;font-size:16px;color:#7a5200}
   .resumen-top{background:#fff4d6;border-radius:12px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+  .info{background:var(--verde-claro);border-radius:10px;padding:10px;font-size:14px;margin:8px 0}
   nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--borde);display:grid;z-index:5}
   nav button{background:none;border:none;padding:8px 2px 10px;font-size:12px;color:var(--gris);display:flex;flex-direction:column;align-items:center;gap:2px}
   nav button span{font-size:22px}
   nav button.active{color:var(--verde);font-weight:700}
   .modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center;z-index:10}
   .modal.hidden{display:none}
-  .box{background:#fff;width:100%;max-width:640px;border-radius:18px 18px 0 0;padding:16px;max-height:88vh;overflow:auto}
+  .box{background:#fff;width:100%;max-width:640px;border-radius:18px 18px 0 0;padding:16px;max-height:90vh;overflow:auto}
   .box h3{margin:4px 0 8px;font-size:19px}
   .big{font-size:30px;font-weight:800;color:var(--verde);margin:6px 0}
   .devuelta{font-size:20px;font-weight:700;min-height:26px}
@@ -82,11 +93,11 @@
   .pick{display:flex;flex-direction:column;gap:6px;margin:10px 0}
   .pick button{text-align:left;padding:12px;border:1px solid var(--borde);border-radius:10px;background:#fff;display:flex;justify-content:space-between}
   .pick small{color:var(--gris)}
-  .mov{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--borde);font-size:14px}
+  .mov{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--borde);font-size:14px;gap:8px}
   .mov .mas{color:var(--rojo);font-weight:700}.mov .menos{color:var(--verde);font-weight:700}
   #toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:10px 16px;border-radius:20px;font-size:14px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:30;max-width:90%;text-align:center}
   #toast.show{opacity:1}
-  .nota{font-size:13px;color:var(--gris);text-align:center;margin-top:20px}
+  .nota{font-size:13px;color:var(--gris);text-align:center;margin-top:16px}
   /* Pantalla de entrada */
   .login{position:fixed;inset:0;background:var(--verde);z-index:20;display:flex;align-items:center;justify-content:center;padding:16px}
   .login.hidden{display:none}
@@ -133,11 +144,14 @@
     </div>
   </section>
 
-  <!-- PRODUCTOS (solo dueño) -->
-  <section id="tab-productos" class="tab">
-    <button class="pri full" onclick="formProducto()">+ Agregar producto</button>
-    <h2>Mercancía</h2>
-    <input id="buscarProd" type="search" placeholder="🔍 Buscar..." oninput="renderProductos()">
+  <!-- MERCANCÍA (todos; editar solo el dueño) -->
+  <section id="tab-mercancia" class="tab">
+    <div class="dos">
+      <button class="pri" onclick="formEntrada()">🚚 Llegó mercancía</button>
+      <button id="btnNuevoProd" class="sec" onclick="formProducto()">+ Producto nuevo</button>
+    </div>
+    <h2>Lo que hay en el colmado</h2>
+    <input id="buscarProd" type="search" placeholder="🔍 Buscar..." oninput="renderMercancia()">
     <div id="listaProd" style="margin-top:10px"></div>
   </section>
 
@@ -153,6 +167,8 @@
   <section id="tab-turno" class="tab">
     <h2>Mi turno de hoy</h2>
     <div id="turnoCards" class="cards"></div>
+    <h2>🚚 Mercancía que recibí hoy</h2>
+    <div id="turnoEntradas"></div>
     <h2>Mis ventas de hoy</h2>
     <div id="turnoVentas"></div>
   </section>
@@ -165,6 +181,10 @@
     <div id="listaCuadre"></div>
     <h2>⚠️ Se están acabando</h2>
     <div id="listaBajos"></div>
+    <h2>🚚 Mercancía que llegó hoy</h2>
+    <div id="listaEntradas"></div>
+    <h2>📉 Conteos de inventario hoy</h2>
+    <div id="listaAjustes"></div>
     <h2>Ventas de hoy</h2>
     <div id="listaVentas"></div>
   </section>
@@ -190,7 +210,7 @@
 
 <script>
 /* ========= UTILIDADES ========= */
-const CLAVE = 'colmadoFacil_v1';
+const CLAVE = 'colmadoFacil_v2';
 const $ = s => document.querySelector(s);
 // Evita que un texto escrito por el usuario se convierta en código (seguridad)
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -199,6 +219,36 @@ const nuevoId = () => Date.now().toString(36) + Math.random().toString(36).slice
 const fecha = ts => new Date(ts).toLocaleString('es-DO', {day:'2-digit', month:'short', hour:'numeric', minute:'2-digit'});
 const hora = ts => new Date(ts).toLocaleTimeString('es-DO', {hour:'numeric', minute:'2-digit'});
 const inicioHoy = () => { const d = new Date(); d.setHours(0, 0, 0, 0); return d.getTime(); };
+const r3 = x => Math.round(x * 1000) / 1000;   // redondeo para libras
+const r2 = x => Math.round(x * 100) / 100;     // redondeo para pesos
+
+/* ========= CANTIDADES FÁCILES DE LEER ========= */
+// 1.5 → "1½", 0.25 → "¼", 0.63 → "0.63"
+function num(n) {
+  n = r3(n);
+  const ent = Math.floor(n), fr = r3(n - ent);
+  const simb = {0.25: '¼', 0.5: '½', 0.75: '¾'};
+  if (fr === 0) return String(ent);
+  if (simb[fr]) return (ent ? ent : '') + simb[fr];
+  return n.toLocaleString('es-DO', {maximumFractionDigits: 2});
+}
+const cant = (n, unidad) => num(n) + (unidad === 'libra' ? ' lb' : ' und');
+const plural = (nombre, n) => { const s = nombre.toLowerCase(); return n === 1 ? s : s + (/[aeiou]$/.test(s) ? 's' : 'es'); };
+// "2 sacos y 40 lb"
+function existencia(p) {
+  if (p.cantidad <= 0) return 'Agotado';
+  if (p.empaqueCant > 0 && p.cantidad >= p.empaqueCant) {
+    const llenos = Math.floor(r3(p.cantidad / p.empaqueCant));
+    const resto = r3(p.cantidad - llenos * p.empaqueCant);
+    return `${llenos} ${plural(p.empaqueNombre, llenos)}` + (resto > 0 ? ' y ' + cant(resto, p.unidad) : '');
+  }
+  return cant(p.cantidad, p.unidad);
+}
+// "5 lb de Arroz", "1 saco de Arroz", "2 Pan de agua"
+function textoItem(i) {
+  if (i.tipo === 'mayor') { const n = r3(i.cant / i.empaqueCant); return `${num(n)} ${plural(i.empaqueNombre, n)} de ${i.nombre}`; }
+  return i.unidad === 'libra' ? `${num(i.cant)} lb de ${i.nombre}` : `${num(i.cant)} ${i.nombre}`;
+}
 
 /* ========= DATOS DE EJEMPLO ========= */
 function usuariosDemo() {
@@ -207,24 +257,31 @@ function usuariosDemo() {
     {id: nuevoId(), nombre: 'Pedro', rol: 'empleado', pin: '1111'}
   ];
 }
+function nuevoProducto(o) {
+  const p = Object.assign({id: nuevoId(), unidad: 'unidad', costo: 0, precio: 0, cantidad: 0, minimo: 5,
+    empaqueNombre: '', empaqueCant: 0, costoEmpaque: 0, precioMayor: 0}, o);
+  if (p.empaqueCant > 0) p.costo = r3(p.costoEmpaque / p.empaqueCant); // costo por libra/unidad
+  return p;
+}
 function datosDemo() {
-  const p = (nombre, costo, precio, cantidad, minimo) => ({id: nuevoId(), nombre, costo, precio, cantidad, minimo});
+  const P = nuevoProducto;
   const productos = [
-    p('Arroz (libra)', 32, 40, 50, 10),
-    p('Habichuelas rojas (libra)', 70, 85, 30, 8),
-    p('Aceite (botella pequeña)', 95, 120, 4, 5),
-    p('Salami (libra)', 150, 190, 8, 3),
-    p('Huevo (unidad)', 7, 10, 120, 30),
-    p('Pan de agua', 4, 5, 60, 20),
-    p('Leche (litro)', 75, 90, 12, 4),
-    p('Azúcar (libra)', 35, 45, 25, 8),
-    p('Café (paquetico)', 40, 50, 3, 5),
-    p('Refresco 2 litros', 90, 115, 13, 5),
-    p('Agua (botellita)', 15, 25, 40, 10),
-    p('Plátano (unidad)', 15, 20, 40, 10),
-    p('Jabón de cuaba', 30, 40, 10, 3),
-    p('Cerveza grande', 130, 175, 23, 6)
+    P({nombre: 'Arroz', unidad: 'libra', precio: 40, cantidad: 290, minimo: 50, empaqueNombre: 'Saco', empaqueCant: 125, costoEmpaque: 4000, precioMayor: 4500}),
+    P({nombre: 'Habichuelas rojas', unidad: 'libra', precio: 85, cantidad: 130, minimo: 25, empaqueNombre: 'Saco', empaqueCant: 100, costoEmpaque: 7000, precioMayor: 7800}),
+    P({nombre: 'Azúcar', unidad: 'libra', precio: 45, cantidad: 160, minimo: 30, empaqueNombre: 'Saco', empaqueCant: 125, costoEmpaque: 4375, precioMayor: 5000}),
+    P({nombre: 'Salami', unidad: 'libra', costo: 150, precio: 190, cantidad: 8, minimo: 3}),
+    P({nombre: 'Huevo', precio: 10, cantidad: 120, minimo: 30, empaqueNombre: 'Caja', empaqueCant: 30, costoEmpaque: 210, precioMayor: 270}),
+    P({nombre: 'Cerveza grande', precio: 175, cantidad: 23, minimo: 6, empaqueNombre: 'Caja', empaqueCant: 12, costoEmpaque: 1560}),
+    P({nombre: 'Aceite (botella pequeña)', costo: 95, precio: 120, cantidad: 4, minimo: 5}),
+    P({nombre: 'Pan de agua', costo: 4, precio: 5, cantidad: 60, minimo: 20}),
+    P({nombre: 'Leche (litro)', costo: 75, precio: 90, cantidad: 12, minimo: 4}),
+    P({nombre: 'Café (paquetico)', costo: 40, precio: 50, cantidad: 3, minimo: 5}),
+    P({nombre: 'Refresco 2 litros', costo: 90, precio: 115, cantidad: 13, minimo: 5}),
+    P({nombre: 'Agua (botellita)', costo: 15, precio: 25, cantidad: 40, minimo: 10}),
+    P({nombre: 'Plátano', costo: 15, precio: 20, cantidad: 40, minimo: 10}),
+    P({nombre: 'Jabón de cuaba', costo: 30, precio: 40, cantidad: 10, minimo: 3})
   ];
+  const [arroz, , , , , cerveza, aceite, , , , refresco] = productos;
   const usuarios = usuariosDemo();
   const pedro = usuarios[1];
   const clientes = [
@@ -233,18 +290,21 @@ function datosDemo() {
     {id: nuevoId(), nombre: 'Rosa', telefono: ''}
   ];
   const ahora = Date.now(), ayer = ahora - 86400000;
-  const item = (pr, cant) => ({pid: pr.id, nombre: pr.nombre, cant, precio: pr.precio, costo: pr.costo});
+  const item = (p, c) => ({pid: p.id, nombre: p.nombre, cant: c, total: r2(p.precio * c), tipo: 'detalle',
+    unidad: p.unidad, empaqueNombre: p.empaqueNombre, empaqueCant: p.empaqueCant, precio: p.precio, costo: p.costo});
   const ventas = [
     {id: nuevoId(), fecha: ayer, metodo: 'fiao', clienteId: clientes[0].id, total: 320,
-     vendedorId: 'dueno', vendedorNombre: 'Dueño', items: [item(productos[0], 5), item(productos[2], 1)]},
+     vendedorId: 'dueno', vendedorNombre: 'Dueño', items: [item(arroz, 5), item(aceite, 1)]},
     {id: nuevoId(), fecha: ahora - 3600000, metodo: 'efectivo', clienteId: null, total: 175,
-     vendedorId: pedro.id, vendedorNombre: pedro.nombre, items: [item(productos[13], 1)]},
+     vendedorId: pedro.id, vendedorNombre: pedro.nombre, items: [item(cerveza, 1)]},
     {id: nuevoId(), fecha: ahora - 1800000, metodo: 'transferencia', clienteId: null, total: 230,
-     vendedorId: pedro.id, vendedorNombre: pedro.nombre, items: [item(productos[9], 2)]}
+     vendedorId: pedro.id, vendedorNombre: pedro.nombre, items: [item(refresco, 2)]}
   ];
   const abonos = [{id: nuevoId(), fecha: ayer + 3600000, clienteId: clientes[0].id, monto: 100,
     metodo: 'efectivo', usuarioId: 'dueno', usuarioNombre: 'Dueño'}];
-  return {productos, clientes, ventas, abonos, usuarios};
+  const entradas = [{id: nuevoId(), fecha: ahora - 7200000, pid: arroz.id, nombre: arroz.nombre, cant: 250,
+    texto: '2 sacos', usuarioId: pedro.id, usuarioNombre: pedro.nombre}];
+  return {productos, clientes, ventas, abonos, usuarios, entradas, ajustes: []};
 }
 
 /* ========= GUARDAR / CARGAR (en el celular) ========= */
@@ -253,7 +313,9 @@ function cargar() {
     const s = localStorage.getItem(CLAVE);
     if (s) {
       const d = JSON.parse(s);
-      if (!d.usuarios) d.usuarios = usuariosDemo(); // datos de la versión anterior
+      d.usuarios = d.usuarios || usuariosDemo();
+      d.entradas = d.entradas || [];
+      d.ajustes = d.ajustes || [];
       return d;
     }
   } catch (e) {}
@@ -264,8 +326,8 @@ function guardar() {
 }
 
 let D = cargar();
-let carrito = [];        // [{pid, cant}]
-let yo = null;           // usuario que entró
+let carrito = [];        // [{pid, tipo:'detalle'|'mayor', cant, total}]
+let yo = null;           // persona que entró
 let tabActual = 'vender';
 
 const prod = id => D.productos.find(p => p.id === id);
@@ -280,14 +342,14 @@ function soloDueno() {
 function deuda(cid) {
   const fiado = D.ventas.filter(v => v.metodo === 'fiao' && v.clienteId === cid).reduce((a, v) => a + v.total, 0);
   const pagado = D.abonos.filter(a => a.clienteId === cid).reduce((a, x) => a + x.monto, 0);
-  return fiado - pagado;
+  return r2(fiado - pagado);
 }
 
 /* ========= AVISOS Y VENTANAS ========= */
 let toastTimer;
 function aviso(txt) {
   const t = $('#toast'); t.textContent = txt; t.classList.add('show');
-  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2300);
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
 }
 function abrirModal(html) { $('#modalBody').innerHTML = html; $('#modal').classList.remove('hidden'); }
 function cerrarModal() { $('#modal').classList.add('hidden'); }
@@ -333,7 +395,6 @@ function tecla(n) {
   if (pin === elegido.pin) {
     yo = elegido; fallos = 0;
     $('#login').classList.add('hidden');
-    tabActual = 'vender';
     $('#usrTxt').textContent = (esDueno() ? '👑 ' : '🧑 ') + yo.nombre;
     verTab('vender');
     aviso('Bienvenido, ' + yo.nombre);
@@ -350,8 +411,8 @@ function salir() { mostrarLogin(); }
 /* ========= PESTAÑAS SEGÚN EL ROL ========= */
 function pestanas() {
   return esDueno()
-    ? [['vender','🧾','Vender'], ['productos','📦','Productos'], ['fiao','📒','Fiao'], ['resumen','📊','Resumen'], ['ajustes','⚙️','Ajustes']]
-    : [['vender','🧾','Vender'], ['fiao','📒','Fiao'], ['turno','🧮','Mi turno']];
+    ? [['vender','🧾','Vender'], ['mercancia','📦','Mercancía'], ['fiao','📒','Fiao'], ['resumen','📊','Resumen'], ['ajustes','⚙️','Ajustes']]
+    : [['vender','🧾','Vender'], ['mercancia','📦','Mercancía'], ['fiao','📒','Fiao'], ['turno','🧮','Mi turno']];
 }
 function renderNav() {
   const p = pestanas();
@@ -370,51 +431,96 @@ function verTab(t) {
 }
 function render() {
   if (!yo) return;
-  renderNav(); renderVender(); renderFiao();
-  if (esDueno()) { renderProductos(); renderResumen(); renderAjustes(); }
+  renderNav(); renderVender(); renderMercancia(); renderFiao();
+  if (esDueno()) { renderResumen(); renderAjustes(); }
   else renderTurno();
 }
 
 /* ========= VENDER ========= */
 function renderVender() {
-  carrito = carrito.filter(it => prod(it.pid));
+  carrito = carrito.filter(l => prod(l.pid));
   const q = $('#buscar').value.trim().toLowerCase();
   const lista = D.productos.filter(p => p.nombre.toLowerCase().includes(q)).sort((a, b) => a.nombre.localeCompare(b.nombre));
   $('#gridProd').innerHTML = lista.map(p => `
-    <button class="prod ${p.cantidad <= 0 ? 'agotado' : ''}" onclick="agregar('${p.id}')">
+    <button class="prod ${p.cantidad <= 0 ? 'agotado' : ''}" onclick="tocarProducto('${p.id}')">
       <span class="pn">${esc(p.nombre)}</span>
-      <span class="pp">${dinero(p.precio)}</span>
-      <span class="ps ${p.cantidad <= p.minimo ? 'bajo' : ''}">${p.cantidad <= 0 ? 'Agotado' : 'Quedan ' + p.cantidad}</span>
+      <span class="pp">${dinero(p.precio)}${p.unidad === 'libra' ? ' /lb' : ''}</span>
+      <span class="ps ${p.cantidad <= p.minimo ? 'bajo' : ''}">${existencia(p)}</span>
     </button>`).join('') || '<p class="vacio">No se encontró ese producto.</p>';
 
-  $('#cartList').innerHTML = carrito.length ? carrito.map(it => {
-    const p = prod(it.pid);
+  $('#cartList').innerHTML = carrito.length ? carrito.map((l, i) => {
+    const p = prod(l.pid);
+    const titulo = l.tipo === 'mayor' ? `${esc(p.nombre)} <small>Al por mayor</small>` : esc(p.nombre);
+    const detalle = l.tipo === 'mayor' ? `${num(l.cant / p.empaqueCant)} ${plural(p.empaqueNombre, r3(l.cant / p.empaqueCant))}` : cant(l.cant, p.unidad);
+    const usaBotones = l.tipo === 'mayor' || p.unidad !== 'libra';
     return `<div class="line">
-      <span class="ln">${esc(p.nombre)}</span>
-      <span class="qty"><button onclick="cambiar('${it.pid}',-1)">−</button><b>${it.cant}</b><button onclick="cambiar('${it.pid}',1)">+</button></span>
-      <span class="lt">${dinero(p.precio * it.cant)}</span>
+      <span class="ln">${titulo}</span>
+      <span class="qty">${usaBotones
+        ? `<button onclick="cambiar(${i},-1)">−</button><b>${detalle}</b><button onclick="cambiar(${i},1)">+</button>`
+        : `<b>${detalle}</b><button onclick="quitar(${i})">✕</button>`}</span>
+      <span class="lt">${dinero(l.total)}</span>
     </div>`;
   }).join('') : '<p class="vacio">Toca un producto para agregarlo a la venta.</p>';
   $('#cartTotal').textContent = dinero(totalCarrito());
   $('#cartBox').classList.toggle('vacia', !carrito.length);
 }
-function totalCarrito() { return carrito.reduce((a, it) => a + prod(it.pid).precio * it.cant, 0); }
+const totalCarrito = () => r2(carrito.reduce((a, l) => a + l.total, 0));
+const enCarrito = pid => r3(carrito.filter(l => l.pid === pid).reduce((a, l) => a + l.cant, 0));
+const totalLinea = (p, tipo, c) => tipo === 'mayor' ? r2(p.precioMayor * c / p.empaqueCant) : r2(p.precio * c);
+const vendeMayor = p => p.precioMayor > 0 && p.empaqueCant > 0;
 
-function agregar(pid) {
+function tocarProducto(pid) {
   const p = prod(pid);
-  const it = carrito.find(x => x.pid === pid);
-  const actual = it ? it.cant : 0;
-  if (actual + 1 > p.cantidad) { aviso('No queda suficiente: ' + p.nombre); return; }
-  if (it) it.cant++; else carrito.push({pid, cant: 1});
+  if (p.cantidad <= 0) { aviso('Agotado: ' + p.nombre); return; }
+  const porLibra = p.unidad === 'libra';
+  // Producto normal sin opciones: se agrega 1 directo
+  if (!porLibra && !vendeMayor(p)) { agregarLinea(pid, 1, 'detalle'); return; }
+  const opciones = porLibra ? [[1, '1 lb'], [0.5, '½ lb'], [0.25, '¼ lb'], [2, '2 lb']] : [[1, '1'], [2, '2'], [3, '3'], [6, '6']];
+  abrirModal(`
+    <h3>${esc(p.nombre)}</h3>
+    <p style="margin:0;color:var(--gris)">${dinero(p.precio)} ${porLibra ? 'la libra' : 'cada uno'} · Quedan ${existencia(p)}</p>
+    <div class="opts">${opciones.map(([c, t]) => `<button onclick="agregarLinea('${pid}',${c},'detalle',true)"><b>${t}</b><small>${dinero(p.precio * c)}</small></button>`).join('')}</div>
+    ${porLibra ? `
+      <label>O por pesos (cuando piden "dame 25 pesos de ${esc(p.nombre.toLowerCase())}")
+        <div class="enlinea"><input id="vPesos" type="number" inputmode="decimal" placeholder="Ej: 25"><button class="pri" onclick="agregarPorPesos('${pid}')">Agregar</button></div>
+      </label>
+      <p id="vEquiv" class="info" style="display:none"></p>` : ''}
+    ${vendeMayor(p) ? `<button class="mayor" onclick="agregarLinea('${pid}',${p.empaqueCant},'mayor',true)">📦 ${esc(p.empaqueNombre)} completo (${cant(p.empaqueCant, p.unidad)}) al por mayor · <b>${dinero(p.precioMayor)}</b></button>` : ''}
+    <button class="sec full" onclick="cerrarModal()">Cancelar</button>`);
+  const vp = $('#vPesos');
+  if (vp) vp.addEventListener('input', () => {
+    const m = parseFloat(vp.value), e = $('#vEquiv');
+    e.style.display = m > 0 ? 'block' : 'none';
+    e.textContent = `Eso es ${cant(r3(m / p.precio), 'libra')} de ${p.nombre.toLowerCase()} aproximadamente`;
+  });
+}
+function agregarPorPesos(pid) {
+  const p = prod(pid);
+  const m = parseFloat($('#vPesos').value) || 0;
+  if (m <= 0) { aviso('Escribe cuántos pesos'); return; }
+  agregarLinea(pid, r3(m / p.precio), 'detalle', true, r2(m));
+}
+function agregarLinea(pid, c, tipo, cerrar, totalFijo) {
+  const p = prod(pid);
+  if (r3(enCarrito(pid) + c) > p.cantidad) { aviso(`No queda suficiente ${p.nombre} (quedan ${existencia(p)})`); return; }
+  const t = totalFijo != null ? totalFijo : totalLinea(p, tipo, c);
+  const l = carrito.find(x => x.pid === pid && x.tipo === tipo);
+  if (l) { l.cant = r3(l.cant + c); l.total = r2(l.total + t); }
+  else carrito.push({pid, tipo, cant: r3(c), total: t});
+  if (cerrar) cerrarModal();
   renderVender();
 }
-function cambiar(pid, d) {
-  const it = carrito.find(x => x.pid === pid); if (!it) return;
-  if (d > 0 && it.cant + 1 > prod(pid).cantidad) { aviso('No queda suficiente'); return; }
-  it.cant += d;
-  if (it.cant <= 0) carrito = carrito.filter(x => x.pid !== pid);
+function cambiar(i, d) {
+  const l = carrito[i]; if (!l) return;
+  const p = prod(l.pid);
+  const paso = l.tipo === 'mayor' ? p.empaqueCant : 1;
+  if (d > 0 && r3(enCarrito(l.pid) + paso) > p.cantidad) { aviso('No queda suficiente'); return; }
+  const nueva = r3(l.cant + d * paso);
+  if (nueva <= 0) carrito.splice(i, 1);
+  else { l.cant = nueva; l.total = totalLinea(p, l.tipo, nueva); }
   renderVender();
 }
+function quitar(i) { carrito.splice(i, 1); renderVender(); }
 
 function pagar(metodo) {
   if (!carrito.length) { aviso('Primero agrega productos'); return; }
@@ -456,12 +562,13 @@ function elegirClienteFiao() {
 
 function terminarVenta(metodo, clienteId) {
   if (!carrito.length) { cerrarModal(); return; }
-  const items = carrito.map(it => {
-    const p = prod(it.pid);
-    p.cantidad -= it.cant; // se descuenta del inventario
-    return {pid: p.id, nombre: p.nombre, cant: it.cant, precio: p.precio, costo: p.costo};
+  const items = carrito.map(l => {
+    const p = prod(l.pid);
+    p.cantidad = r3(p.cantidad - l.cant); // se descuenta del inventario
+    return {pid: p.id, nombre: p.nombre, cant: l.cant, total: l.total, tipo: l.tipo, unidad: p.unidad,
+      empaqueNombre: p.empaqueNombre, empaqueCant: p.empaqueCant, precio: p.precio, costo: p.costo};
   });
-  const total = items.reduce((a, i) => a + i.precio * i.cant, 0);
+  const total = r2(items.reduce((a, i) => a + i.total, 0));
   D.ventas.push({id: nuevoId(), fecha: Date.now(), metodo, clienteId: clienteId || null, total, items,
     vendedorId: yo.id, vendedorNombre: yo.nombre});
   carrito = [];
@@ -469,45 +576,158 @@ function terminarVenta(metodo, clienteId) {
   aviso(metodo === 'fiao' ? `Fiao anotado a ${cliente(clienteId).nombre}: ${dinero(total)}` : 'Venta registrada: ' + dinero(total));
 }
 
-/* ========= PRODUCTOS (solo dueño) ========= */
-function renderProductos() {
+/* ========= MERCANCÍA ========= */
+function renderMercancia() {
+  $('#btnNuevoProd').style.display = esDueno() ? '' : 'none';
   const q = $('#buscarProd').value.trim().toLowerCase();
   const lista = D.productos.filter(p => p.nombre.toLowerCase().includes(q)).sort((a, b) => a.nombre.localeCompare(b.nombre));
-  $('#listaProd').innerHTML = lista.map(p => `
-    <div class="row" onclick="formProducto('${p.id}')">
-      <div><b>${esc(p.nombre)}</b><small>Compra ${dinero(p.costo)} · Venta ${dinero(p.precio)} · Gana ${dinero(p.precio - p.costo)}</small></div>
-      <span class="badge ${p.cantidad <= p.minimo ? 'bajo' : ''}">${p.cantidad}</span>
-    </div>`).join('') || '<p class="vacio">No hay productos.</p>';
+  $('#listaProd').innerHTML = lista.map(p => {
+    const porLb = p.unidad === 'libra' ? '/lb' : '';
+    const emp = p.empaqueCant > 0 ? ` · ${p.empaqueNombre} de ${cant(p.empaqueCant, p.unidad)}` : '';
+    const linea = esDueno()
+      ? `Venta ${dinero(p.precio)}${porLb} · Costo ${dinero(p.costo)}${porLb} · Gana ${dinero(r2(p.precio - p.costo))}${porLb}${emp}`
+      : `Venta ${dinero(p.precio)}${porLb}${emp}`;
+    return `<div class="row ${esDueno() ? 'clic' : ''}" ${esDueno() ? `onclick="formProducto('${p.id}')"` : ''}>
+      <div><b>${esc(p.nombre)}</b><small>${esc(linea)}</small></div>
+      <span class="badge ${p.cantidad <= p.minimo ? 'bajo' : ''}">${existencia(p)}</span>
+    </div>`;
+  }).join('') || '<p class="vacio">No hay productos.</p>';
 }
+
+/* --- Entrada de mercancía (dueño y empleado) --- */
+function formEntrada(pidElegido) {
+  if (!D.productos.length) { aviso('Primero el dueño debe crear los productos'); return; }
+  const lista = [...D.productos].sort((a, b) => a.nombre.localeCompare(b.nombre));
+  abrirModal(`
+    <h3>🚚 Llegó mercancía</h3>
+    <label>¿Qué producto llegó?
+      <select id="eProd" onchange="actEntrada()">${lista.map(p => `<option value="${p.id}">${esc(p.nombre)}</option>`).join('')}</select>
+    </label>
+    <label>¿Cuánto llegó?
+      <div class="enlinea"><input id="eCant" type="number" inputmode="decimal" placeholder="Ej: 2"><select id="eUnidad" style="max-width:45%"></select></div>
+    </label>
+    ${esDueno() ? `<label><span id="eCostoTxt"></span><input id="eCosto" type="number" inputmode="decimal" placeholder="Déjalo vacío si costó lo mismo"></label>` : ''}
+    <p id="eInfo" class="info"></p>
+    <div class="acts"><button class="sec" onclick="cerrarModal()">Cancelar</button><button class="pri" onclick="guardarEntrada()">Guardar</button></div>`);
+  if (pidElegido) $('#eProd').value = pidElegido;
+  actEntrada();
+}
+function actEntrada() {
+  const p = prod($('#eProd').value);
+  const unidades = p.unidad === 'libra' ? 'Libras' : 'Unidades';
+  $('#eUnidad').innerHTML = p.empaqueCant > 0
+    ? `<option value="emp">${esc(p.empaqueNombre)}s (de ${cant(p.empaqueCant, p.unidad)})</option><option value="suelto">${unidades}</option>`
+    : `<option value="suelto">${unidades}</option>`;
+  if ($('#eCostoTxt')) $('#eCostoTxt').textContent = p.empaqueCant > 0
+    ? `¿A cuánto te costó cada ${p.empaqueNombre.toLowerCase()} esta vez? (antes: ${dinero(p.costoEmpaque)})`
+    : `¿A cuánto te costó cada ${p.unidad === 'libra' ? 'libra' : 'unidad'} esta vez? (antes: ${dinero(p.costo)})`;
+  $('#eInfo').textContent = 'Ahora hay: ' + existencia(p);
+}
+function guardarEntrada() {
+  const p = prod($('#eProd').value);
+  const c = parseFloat($('#eCant').value) || 0;
+  const tipo = $('#eUnidad').value;
+  if (c <= 0) { aviso('Escribe cuánto llegó'); return; }
+  const unidades = r3(tipo === 'emp' ? c * p.empaqueCant : c);
+  const texto = tipo === 'emp' ? `${num(c)} ${plural(p.empaqueNombre, c)}` : cant(c, p.unidad);
+  // Solo el dueño puede cambiar el costo
+  if (esDueno()) {
+    const nuevoCosto = parseFloat($('#eCosto').value) || 0;
+    if (nuevoCosto > 0) {
+      if (p.empaqueCant > 0) { p.costoEmpaque = nuevoCosto; p.costo = r3(nuevoCosto / p.empaqueCant); }
+      else p.costo = nuevoCosto;
+    }
+  }
+  p.cantidad = r3(p.cantidad + unidades);
+  D.entradas.push({id: nuevoId(), fecha: Date.now(), pid: p.id, nombre: p.nombre, cant: unidades, texto, usuarioId: yo.id, usuarioNombre: yo.nombre});
+  guardar(); cerrarModal(); render();
+  aviso(`Se sumó ${texto} de ${p.nombre}. Ahora hay ${existencia(p)}`);
+}
+
+/* --- Crear / editar producto (solo dueño) --- */
 function formProducto(id) {
   if (!soloDueno()) return;
-  const p = id ? prod(id) : {nombre: '', costo: '', precio: '', cantidad: '', minimo: 5};
+  const p = id ? prod(id) : {nombre: '', unidad: 'libra', precio: '', costo: '', empaqueNombre: 'Saco', empaqueCant: '', costoEmpaque: '', precioMayor: '', minimo: ''};
+  const v = x => (x === 0 || x === '') ? '' : esc(x);
   abrirModal(`
-    <h3>${id ? 'Editar producto' : 'Nuevo producto'}</h3>
-    <label>Nombre<input id="fNombre" value="${esc(p.nombre)}" placeholder="Ej: Arroz (libra)"></label>
-    <label>Precio de compra (lo que te cuesta)<input id="fCosto" type="number" inputmode="decimal" value="${esc(p.costo)}"></label>
-    <label>Precio de venta<input id="fPrecio" type="number" inputmode="decimal" value="${esc(p.precio)}"></label>
-    <label>Cantidad que hay<input id="fCant" type="number" inputmode="numeric" value="${esc(p.cantidad)}"></label>
-    <label>Avisarme cuando queden menos de<input id="fMin" type="number" inputmode="numeric" value="${esc(p.minimo)}"></label>
+    <h3>${id ? 'Editar producto' : 'Producto nuevo'}</h3>
+    <label>Nombre<input id="fNombre" value="${esc(p.nombre)}" placeholder="Ej: Arroz"></label>
+    <label>¿Cómo se vende?
+      <select id="fUnidad" onchange="actFormProd()">
+        <option value="libra">Por libra (se puede vender ½ y ¼)</option>
+        <option value="unidad">Por unidad</option>
+      </select>
+    </label>
+    <label>Precio de venta <span class="uTxt"></span><input id="fPrecio" type="number" inputmode="decimal" value="${v(p.precio)}"></label>
+    <label>¿Se compra en saco, caja o paquete?
+      <select id="fConEmp" onchange="actFormProd()">
+        <option value="no">No, se compra igual que se vende</option>
+        <option value="si">Sí</option>
+      </select>
+    </label>
+    <div id="bloqueEmp" class="info">
+      <label>¿Cómo se llama el empaque?<input id="fEmpNombre" value="${esc(p.empaqueNombre)}" placeholder="Ej: Saco, Caja, Paquete"></label>
+      <label>¿Cuántas <span class="uPl"></span> trae?<input id="fEmpCant" type="number" inputmode="decimal" value="${v(p.empaqueCant)}" placeholder="Ej: 125"></label>
+      <label>¿Cuánto te cuesta el empaque completo?<input id="fCostoEmp" type="number" inputmode="decimal" value="${v(p.costoEmpaque)}" placeholder="Ej: 4000"></label>
+      <label>Precio al por mayor del empaque completo (opcional)<input id="fMayor" type="number" inputmode="decimal" value="${v(p.precioMayor)}" placeholder="Vacío = no se vende al por mayor"></label>
+    </div>
+    <div id="bloqueSinEmp"><label>Precio de compra <span class="uTxt"></span><input id="fCosto" type="number" inputmode="decimal" value="${v(p.costo)}"></label></div>
+    <label>Avisarme cuando queden menos de (en <span class="uPl"></span>)<input id="fMin" type="number" inputmode="decimal" value="${v(p.minimo)}"></label>
+    ${id ? `<p class="info">Hay ahora: <b>${existencia(p)}</b>. Para sumar usa "🚚 Llegó mercancía"; para corregir usa "Contar inventario".</p>` : `
+      <div id="iniEmp"><label>¿Cuántos empaques completos tienes ahora?<input id="fIniEmp" type="number" inputmode="decimal" placeholder="Ej: 2"></label></div>
+      <label><span id="iniSuelTxt"></span><input id="fIniSuel" type="number" inputmode="decimal" placeholder="Ej: 40"></label>`}
     <div class="acts">
-      ${id ? `<button class="del" onclick="confirmarBorrarProducto('${id}')">Eliminar</button>` : ''}
+      ${id ? `<button class="del" onclick="confirmarBorrarProducto('${id}')">Eliminar</button>
+              <button class="sec" onclick="formConteo('${id}')">📋 Contar inventario</button>` : ''}
       <button class="sec" onclick="cerrarModal()">Cancelar</button>
       <button class="pri" onclick="guardarProducto('${id || ''}')">Guardar</button>
     </div>`);
+  $('#fUnidad').value = p.unidad;
+  $('#fConEmp').value = p.empaqueCant > 0 ? 'si' : 'no';
+  actFormProd();
+}
+function actFormProd() {
+  const libra = $('#fUnidad').value === 'libra';
+  const emp = $('#fConEmp').value === 'si';
+  document.querySelectorAll('.uTxt').forEach(e => e.textContent = libra ? '(por libra)' : '(por unidad)');
+  document.querySelectorAll('.uPl').forEach(e => e.textContent = libra ? 'libras' : 'unidades');
+  $('#bloqueEmp').style.display = emp ? '' : 'none';
+  $('#bloqueSinEmp').style.display = emp ? 'none' : '';
+  if ($('#iniEmp')) {
+    $('#iniEmp').style.display = emp ? '' : 'none';
+    $('#iniSuelTxt').textContent = emp ? `¿Y cuántas ${libra ? 'libras' : 'unidades'} sueltas?` : `¿Cuántas ${libra ? 'libras' : 'unidades'} tienes ahora?`;
+  }
 }
 function guardarProducto(id) {
   if (!soloDueno()) return;
+  const n = sel => parseFloat($(sel).value) || 0;
   const nombre = $('#fNombre').value.trim();
-  const costo = parseFloat($('#fCosto').value) || 0;
-  const precio = parseFloat($('#fPrecio').value) || 0;
-  const cantidad = parseInt($('#fCant').value) || 0;
-  const minimo = parseInt($('#fMin').value) || 0;
+  const unidad = $('#fUnidad').value;
+  const emp = $('#fConEmp').value === 'si';
+  const precio = n('#fPrecio'), minimo = n('#fMin');
   if (!nombre) { aviso('Escribe el nombre del producto'); return; }
   if (precio <= 0) { aviso('Escribe el precio de venta'); return; }
-  if (id) Object.assign(prod(id), {nombre, costo, precio, cantidad, minimo});
-  else D.productos.push({id: nuevoId(), nombre, costo, precio, cantidad, minimo});
+  const datos = {nombre, unidad, precio, minimo, empaqueNombre: '', empaqueCant: 0, costoEmpaque: 0, precioMayor: 0, costo: 0};
+  if (emp) {
+    datos.empaqueNombre = $('#fEmpNombre').value.trim();
+    datos.empaqueCant = n('#fEmpCant');
+    datos.costoEmpaque = n('#fCostoEmp');
+    datos.precioMayor = n('#fMayor');
+    if (!datos.empaqueNombre) { aviso('Escribe el nombre del empaque (ej: Saco)'); return; }
+    if (datos.empaqueCant <= 0) { aviso(`Escribe cuántas ${unidad === 'libra' ? 'libras' : 'unidades'} trae el ${datos.empaqueNombre.toLowerCase()}`); return; }
+    datos.costo = r3(datos.costoEmpaque / datos.empaqueCant);
+  } else {
+    datos.costo = n('#fCosto');
+  }
+  if (id) Object.assign(prod(id), datos);
+  else {
+    datos.cantidad = r3((emp ? n('#fIniEmp') * datos.empaqueCant : 0) + n('#fIniSuel'));
+    D.productos.push(nuevoProducto(datos));
+  }
   guardar(); cerrarModal(); render();
-  aviso(precio < costo ? '⚠️ Guardado, pero lo estás vendiendo más barato de lo que te cuesta' : 'Producto guardado');
+  if (datos.precio < datos.costo) aviso('⚠️ Guardado, pero lo estás vendiendo más barato de lo que te cuesta');
+  else if (datos.precioMayor > 0 && datos.precioMayor < datos.costoEmpaque) aviso('⚠️ Guardado, pero el precio al por mayor es menor que lo que te cuesta');
+  else aviso(`Producto guardado. Ganas ${dinero(r2(datos.precio - datos.costo))} por ${unidad === 'libra' ? 'libra' : 'unidad'}`);
 }
 function confirmarBorrarProducto(id) {
   if (!soloDueno()) return;
@@ -520,6 +740,35 @@ function borrarProducto(id) {
   guardar(); cerrarModal(); render(); aviso('Producto eliminado');
 }
 
+/* --- Contar inventario (solo dueño): corrige y anota la pérdida --- */
+function formConteo(id) {
+  if (!soloDueno()) return;
+  const p = prod(id);
+  const pl = p.unidad === 'libra' ? 'libras' : 'unidades';
+  abrirModal(`
+    <h3>📋 Contar ${esc(p.nombre)}</h3>
+    <p class="info">Según la app hay: <b>${existencia(p)}</b> (${cant(p.cantidad, p.unidad)})</p>
+    <p>Cuenta o pesa lo que hay de verdad y escríbelo:</p>
+    ${p.empaqueCant > 0 ? `<label>${esc(p.empaqueNombre)}s completos<input id="cEmp" type="number" inputmode="decimal" placeholder="Ej: 2"></label>` : ''}
+    <label>${p.empaqueCant > 0 ? pl[0].toUpperCase() + pl.slice(1) + ' sueltas' : pl[0].toUpperCase() + pl.slice(1) + ' que hay'}<input id="cSuel" type="number" inputmode="decimal" placeholder="Ej: 35"></label>
+    <div class="acts"><button class="sec" onclick="formProducto('${id}')">Cancelar</button><button class="pri" onclick="guardarConteo('${id}')">Guardar conteo</button></div>`);
+}
+function guardarConteo(id) {
+  if (!soloDueno()) return;
+  const p = prod(id);
+  const e = $('#cEmp') ? parseFloat($('#cEmp').value) || 0 : 0;
+  const s = parseFloat($('#cSuel').value) || 0;
+  if (($('#cEmp') ? $('#cEmp').value === '' : true) && $('#cSuel').value === '') { aviso('Escribe lo que contaste'); return; }
+  const despues = r3(e * p.empaqueCant + s), antes = p.cantidad, dif = r3(despues - antes);
+  D.ajustes.push({id: nuevoId(), fecha: Date.now(), pid: p.id, nombre: p.nombre, unidad: p.unidad, antes, despues, dif,
+    valor: r2(dif * p.costo), usuarioId: yo.id, usuarioNombre: yo.nombre});
+  p.cantidad = despues;
+  guardar(); cerrarModal(); render();
+  if (dif === 0) aviso('✅ Todo cuadra, no falta nada');
+  else if (dif < 0) aviso(`📉 Faltaron ${cant(-dif, p.unidad)}. Pérdida: ${dinero(-r2(dif * p.costo))}`);
+  else aviso(`📈 Sobraron ${cant(dif, p.unidad)}`);
+}
+
 /* ========= FIAO ========= */
 function renderFiao() {
   const total = D.clientes.reduce((a, c) => a + Math.max(0, deuda(c.id)), 0);
@@ -528,7 +777,7 @@ function renderFiao() {
   const lista = [...D.clientes].sort((a, b) => deuda(b.id) - deuda(a.id));
   $('#listaClientes').innerHTML = lista.map(c => {
     const d = deuda(c.id);
-    return `<div class="row" onclick="verCliente('${c.id}')">
+    return `<div class="row clic" onclick="verCliente('${c.id}')">
       <div><b>${esc(c.nombre)}</b><small>${c.telefono ? esc(c.telefono) : 'Sin teléfono'}</small></div>
       <span class="badge ${d > 0 ? 'debe' : ''}">${d > 0 ? dinero(d) : 'Al día'}</span>
     </div>`;
@@ -560,7 +809,7 @@ function verCliente(id) {
   const c = cliente(id), d = deuda(id);
   const movs = [
     ...D.ventas.filter(v => v.metodo === 'fiao' && v.clienteId === id)
-      .map(v => ({fecha: v.fecha, txt: v.items.map(i => i.cant + ' ' + i.nombre).join(', '), quien: v.vendedorNombre, monto: v.total, tipo: 'mas'})),
+      .map(v => ({fecha: v.fecha, txt: v.items.map(textoItem).join(', '), quien: v.vendedorNombre, monto: v.total, tipo: 'mas'})),
     ...D.abonos.filter(a => a.clienteId === id)
       .map(a => ({fecha: a.fecha, txt: 'Abono' + (a.metodo === 'transferencia' ? ' por transferencia' : ' en efectivo'), quien: a.usuarioNombre, monto: a.monto, tipo: 'menos'}))
   ].sort((a, b) => b.fecha - a.fecha);
@@ -609,15 +858,29 @@ function cuadre(uid) {
   const t0 = inicioHoy();
   const v = D.ventas.filter(x => x.fecha >= t0 && x.vendedorId === uid);
   const a = D.abonos.filter(x => x.fecha >= t0 && x.usuarioId === uid);
-  const suma = (arr, m, campo) => arr.filter(x => (x.metodo || 'efectivo') === m).reduce((s, x) => s + x[campo], 0);
+  const suma = (arr, m, campo) => r2(arr.filter(x => (x.metodo || 'efectivo') === m).reduce((s, x) => s + x[campo], 0));
   const r = {
     ventas: v, n: v.length,
-    vendido: v.reduce((s, x) => s + x.total, 0),
+    vendido: r2(v.reduce((s, x) => s + x.total, 0)),
     efe: suma(v, 'efectivo', 'total'), tra: suma(v, 'transferencia', 'total'), fia: suma(v, 'fiao', 'total'),
     aboEfe: suma(a, 'efectivo', 'monto'), aboTra: suma(a, 'transferencia', 'monto')
   };
-  r.caja = r.efe + r.aboEfe; // efectivo que debe estar en la caja
+  r.caja = r2(r.efe + r.aboEfe); // efectivo que debe estar en la caja
   return r;
+}
+function listaVentasHTML(ventas, mostrarVendedor) {
+  const nombres = {efectivo: '💵 Efectivo', transferencia: '🏦 Transferencia', fiao: '📒 Fiao'};
+  return ventas.map(v => `
+    <div class="row"><div><b>${dinero(v.total)}</b>
+      <small>${hora(v.fecha)} · ${nombres[v.metodo]}${v.clienteId && cliente(v.clienteId) ? ' a ' + esc(cliente(v.clienteId).nombre) : ''}${mostrarVendedor && v.vendedorNombre ? ' · vendió ' + esc(v.vendedorNombre) : ''}</small>
+      <small>${esc(v.items.map(textoItem).join(', '))}</small></div></div>`).join('')
+    || '<p class="vacio">Todavía no hay ventas hoy.</p>';
+}
+function listaEntradasHTML(entradas, mostrarQuien) {
+  return entradas.map(e => `
+    <div class="row"><div><b>${esc(e.texto)} de ${esc(e.nombre)}</b>
+      <small>${hora(e.fecha)}${mostrarQuien ? ' · recibió ' + esc(e.usuarioNombre) : ''}</small></div></div>`).join('')
+    || '<p class="vacio">No ha llegado mercancía hoy.</p>';
 }
 
 /* ========= MI TURNO (empleado) ========= */
@@ -630,26 +893,22 @@ function renderTurno() {
     <div class="card"><small>📒 Fiado</small><b>${dinero(c.fia)}</b></div>
     <div class="card"><small>Abonos que cobré</small><b>${dinero(c.aboEfe + c.aboTra)}</b></div>
     <div class="card caja"><small>💰 Efectivo que debo entregar</small><b>${dinero(c.caja)}</b></div>`;
+  const t0 = inicioHoy();
+  $('#turnoEntradas').innerHTML = listaEntradasHTML(D.entradas.filter(e => e.fecha >= t0 && e.usuarioId === yo.id).reverse());
   $('#turnoVentas').innerHTML = listaVentasHTML([...c.ventas].reverse());
 }
 
 /* ========= RESUMEN (dueño) ========= */
-function listaVentasHTML(ventas, mostrarVendedor) {
-  const nombres = {efectivo: '💵 Efectivo', transferencia: '🏦 Transferencia', fiao: '📒 Fiao'};
-  return ventas.map(v => `
-    <div class="row" style="cursor:default"><div><b>${dinero(v.total)}</b>
-      <small>${hora(v.fecha)} · ${nombres[v.metodo]}${v.clienteId && cliente(v.clienteId) ? ' a ' + esc(cliente(v.clienteId).nombre) : ''}${mostrarVendedor && v.vendedorNombre ? ' · vendió ' + esc(v.vendedorNombre) : ''}</small>
-      <small>${esc(v.items.map(i => i.cant + ' ' + i.nombre).join(', '))}</small></div></div>`).join('')
-    || '<p class="vacio">Todavía no hay ventas hoy.</p>';
-}
 function renderResumen() {
   const t0 = inicioHoy();
   $('#resumenTitulo').textContent = 'Resumen de hoy, ' + new Date().toLocaleDateString('es-DO', {weekday: 'long', day: 'numeric', month: 'long'});
   const hoy = D.ventas.filter(v => v.fecha >= t0);
-  const suma = m => hoy.filter(v => v.metodo === m).reduce((a, v) => a + v.total, 0);
-  const vendido = hoy.reduce((a, v) => a + v.total, 0);
-  const ganancia = hoy.reduce((a, v) => a + v.items.reduce((b, i) => b + (i.precio - i.costo) * i.cant, 0), 0);
-  const abonosHoy = D.abonos.filter(a => a.fecha >= t0).reduce((a, x) => a + x.monto, 0);
+  const suma = m => r2(hoy.filter(v => v.metodo === m).reduce((a, v) => a + v.total, 0));
+  const vendido = r2(hoy.reduce((a, v) => a + v.total, 0));
+  const ganancia = r2(hoy.reduce((a, v) => a + v.items.reduce((b, i) => b + (i.total - i.costo * i.cant), 0), 0));
+  const abonosHoy = r2(D.abonos.filter(a => a.fecha >= t0).reduce((a, x) => a + x.monto, 0));
+  const ajustesHoy = D.ajustes.filter(a => a.fecha >= t0);
+  const perdida = r2(ajustesHoy.filter(a => a.dif < 0).reduce((s, a) => s - a.valor, 0));
   const efe = suma('efectivo'), tra = suma('transferencia'), fia = suma('fiao');
 
   $('#resumenCards').innerHTML = `
@@ -659,7 +918,8 @@ function renderResumen() {
     <div class="card"><small>📒 Fiado hoy</small><b>${dinero(fia)}</b></div>
     <div class="card"><small>Abonos cobrados</small><b>${dinero(abonosHoy)}</b></div>
     <div class="card"><small>Dinero que entró</small><b>${dinero(efe + tra + abonosHoy)}</b></div>
-    <div class="card"><small>Ganancia aproximada</small><b>${dinero(ganancia)}</b></div>`;
+    <div class="card"><small>Ganancia aproximada</small><b>${dinero(ganancia)}</b></div>
+    ${perdida > 0 ? `<div class="card caja" style="background:var(--rojo-claro);border-color:#f5c2c0"><small>📉 Pérdida por conteos de hoy</small><b style="color:var(--rojo)">${dinero(perdida)}</b></div>` : ''}`;
 
   const cuadres = D.usuarios.map(u => ({u, c: cuadre(u.id)})).filter(x => x.c.n || x.c.aboEfe || x.c.aboTra);
   $('#listaCuadre').innerHTML = cuadres.map(({u, c}) => `
@@ -675,8 +935,16 @@ function renderResumen() {
 
   const bajos = D.productos.filter(p => p.cantidad <= p.minimo).sort((a, b) => a.cantidad - b.cantidad);
   $('#listaBajos').innerHTML = bajos.map(p => `
-    <div class="row" onclick="formProducto('${p.id}')"><b>${esc(p.nombre)}</b><span class="badge bajo">${p.cantidad <= 0 ? 'Agotado' : 'Quedan ' + p.cantidad}</span></div>`).join('')
+    <div class="row clic" onclick="formEntrada('${p.id}')"><div><b>${esc(p.nombre)}</b><small>Toca para anotar que llegó</small></div><span class="badge bajo">${existencia(p)}</span></div>`).join('')
     || '<p class="vacio">Todo bien surtido 👍</p>';
+
+  $('#listaEntradas').innerHTML = listaEntradasHTML(D.entradas.filter(e => e.fecha >= t0).reverse(), true);
+
+  $('#listaAjustes').innerHTML = ajustesHoy.reverse().map(a => `
+    <div class="row"><div><b>${esc(a.nombre)}</b>
+      <small>${hora(a.fecha)} · La app decía ${cant(a.antes, a.unidad)}, se contaron ${cant(a.despues, a.unidad)}</small></div>
+      <span class="badge ${a.dif < 0 ? 'bajo' : ''}">${a.dif === 0 ? 'Cuadra' : (a.dif < 0 ? '−' + dinero(-a.valor) : '+' + cant(a.dif, a.unidad))}</span></div>`).join('')
+    || '<p class="vacio">No se ha contado inventario hoy.</p>';
 
   $('#listaVentas').innerHTML = listaVentasHTML([...hoy].reverse(), true);
 }
@@ -685,8 +953,8 @@ function renderResumen() {
 function renderAjustes() {
   const lista = [...D.usuarios].sort((a, b) => (a.rol === 'dueno' ? -1 : 1) - (b.rol === 'dueno' ? -1 : 1));
   $('#listaUsuarios').innerHTML = lista.map(u => `
-    <div class="row" onclick="formUsuario('${u.id}')">
-      <div><b>${u.rol === 'dueno' ? '👑' : '🧑'} ${esc(u.nombre)}</b><small>${u.rol === 'dueno' ? 'Dueño: puede hacer todo' : 'Empleado: solo vender, fiar y cobrar abonos'}</small></div>
+    <div class="row clic" onclick="formUsuario('${u.id}')">
+      <div><b>${u.rol === 'dueno' ? '👑' : '🧑'} ${esc(u.nombre)}</b><small>${u.rol === 'dueno' ? 'Dueño: puede hacer todo' : 'Empleado: vender, fiar, cobrar abonos y recibir mercancía'}</small></div>
       <span class="badge">Editar</span>
     </div>`).join('');
 }
@@ -709,7 +977,7 @@ function guardarUsuario(id) {
   const nuevoPin = $('#uPin').value.trim();
   if (!nombre) { aviso('Escribe el nombre'); return; }
   if ((!id || nuevoPin) && !/^\d{4}$/.test(nuevoPin)) { aviso('El PIN debe ser de 4 números'); return; }
-  if (nuevoPin && /^(\d)\1{3}$/.test(nuevoPin) && esDueno() && id === yo.id) { aviso('⚠️ Usa un PIN más difícil que 4 números iguales'); return; }
+  if (nuevoPin && /^(\d)\1{3}$/.test(nuevoPin) && id === yo.id) { aviso('⚠️ Usa un PIN más difícil que 4 números iguales'); return; }
   if (id) {
     const u = usuario(id);
     u.nombre = nombre;
