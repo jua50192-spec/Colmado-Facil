@@ -12,15 +12,16 @@
   }
   *{box-sizing:border-box}
   body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--fondo);color:var(--texto);font-size:16px}
-  header{background:var(--verde);color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}
-  header h1{margin:0;font-size:20px}
-  header small{opacity:.85}
+  header{background:var(--verde);color:#fff;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5;gap:8px}
+  header h1{margin:0;font-size:19px;white-space:nowrap}
+  .usr{display:flex;align-items:center;gap:8px;font-size:14px}
+  .usr button{background:rgba(255,255,255,.18);color:#fff;border:none;border-radius:16px;padding:6px 12px;font-size:14px}
   main{max-width:640px;margin:0 auto;padding:12px 16px 96px}
   .tab{display:none}.tab.active{display:block}
   h2{font-size:18px;margin:16px 0 8px}
-  input{width:100%;padding:12px;border:1px solid var(--borde);border-radius:10px;font-size:16px;background:#fff}
+  input,select{width:100%;padding:12px;border:1px solid var(--borde);border-radius:10px;font-size:16px;background:#fff;font-family:inherit}
   label{display:block;margin:10px 0;font-size:14px;color:var(--gris)}
-  label input{margin-top:4px;color:var(--texto)}
+  label input,label select{margin-top:4px;color:var(--texto)}
   button{font-family:inherit;font-size:16px;cursor:pointer}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:10px}
   .prod{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:10px;text-align:left;display:flex;flex-direction:column;gap:4px;min-height:92px}
@@ -61,8 +62,13 @@
   .card.destacada{grid-column:1/-1;background:var(--verde);color:#fff;border:none}
   .card.destacada small{color:#d6f0e0}
   .card.destacada b{font-size:28px}
+  .card.caja{grid-column:1/-1;background:#fff4d6;border-color:#f3dc9a}
+  .card.caja b{font-size:26px;color:#7a5200}
+  .cuadre{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:12px;margin-bottom:8px}
+  .cuadre .fila{display:flex;justify-content:space-between;font-size:14px;padding:3px 0}
+  .cuadre .fila.caja{border-top:1px dashed var(--borde);margin-top:6px;padding-top:8px;font-weight:700;font-size:16px;color:#7a5200}
   .resumen-top{background:#fff4d6;border-radius:12px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
-  nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--borde);display:grid;grid-template-columns:repeat(4,1fr);z-index:5}
+  nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--borde);display:grid;z-index:5}
   nav button{background:none;border:none;padding:8px 2px 10px;font-size:12px;color:var(--gris);display:flex;flex-direction:column;align-items:center;gap:2px}
   nav button span{font-size:22px}
   nav button.active{color:var(--verde);font-weight:700}
@@ -78,20 +84,40 @@
   .pick small{color:var(--gris)}
   .mov{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--borde);font-size:14px}
   .mov .mas{color:var(--rojo);font-weight:700}.mov .menos{color:var(--verde);font-weight:700}
-  #toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:10px 16px;border-radius:20px;font-size:14px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:20;max-width:90%;text-align:center}
+  #toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:10px 16px;border-radius:20px;font-size:14px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:30;max-width:90%;text-align:center}
   #toast.show{opacity:1}
   .nota{font-size:13px;color:var(--gris);text-align:center;margin-top:20px}
+  /* Pantalla de entrada */
+  .login{position:fixed;inset:0;background:var(--verde);z-index:20;display:flex;align-items:center;justify-content:center;padding:16px}
+  .login.hidden{display:none}
+  .lbox{background:#fff;border-radius:18px;padding:20px;width:100%;max-width:380px;text-align:center}
+  .lbox h2{margin:0 0 4px;font-size:22px}
+  .lbox p{color:var(--gris);margin:0 0 14px}
+  .ulist{display:flex;flex-direction:column;gap:8px}
+  .ulist button{padding:14px;border:1px solid var(--borde);border-radius:12px;background:#fff;font-size:17px;text-align:left;display:flex;justify-content:space-between;align-items:center}
+  .ulist small{color:var(--gris);font-size:13px}
+  .dots{display:flex;justify-content:center;gap:14px;margin:14px 0 18px}
+  .dots i{width:16px;height:16px;border-radius:50%;border:2px solid var(--verde);display:block}
+  .dots i.on{background:var(--verde)}
+  .dots.error{animation:tiembla .35s}
+  @keyframes tiembla{25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+  .pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .pad button{padding:16px 0;font-size:24px;border-radius:14px;border:1px solid var(--borde);background:var(--fondo);font-weight:600}
+  .pad button.chico{font-size:15px;background:#fff}
 </style>
 </head>
 <body>
 
+<!-- PANTALLA DE ENTRADA -->
+<div id="login" class="login"><div class="lbox" id="loginBody"></div></div>
+
 <header>
   <h1>🛒 Colmado Fácil</h1>
-  <small id="hoyTxt"></small>
+  <div class="usr"><span id="usrTxt"></span><button onclick="salir()">Salir</button></div>
 </header>
 
 <main>
-  <!-- VENDER -->
+  <!-- VENDER (todos) -->
   <section id="tab-vender" class="tab active">
     <input id="buscar" type="search" placeholder="🔍 Buscar producto..." oninput="renderVender()">
     <div id="gridProd" class="grid"></div>
@@ -107,7 +133,7 @@
     </div>
   </section>
 
-  <!-- PRODUCTOS -->
+  <!-- PRODUCTOS (solo dueño) -->
   <section id="tab-productos" class="tab">
     <button class="pri full" onclick="formProducto()">+ Agregar producto</button>
     <h2>Mercancía</h2>
@@ -115,33 +141,47 @@
     <div id="listaProd" style="margin-top:10px"></div>
   </section>
 
-  <!-- FIAO -->
+  <!-- FIAO (todos) -->
   <section id="tab-fiao" class="tab">
     <div class="resumen-top"><span>Total por cobrar</span><b id="totalFiao" style="font-size:22px"></b></div>
-    <button class="pri full" onclick="formCliente(false)">+ Cliente nuevo</button>
+    <button id="btnNuevoCliente" class="pri full" onclick="formCliente(false)">+ Cliente nuevo</button>
     <h2>Clientes</h2>
     <div id="listaClientes"></div>
   </section>
 
-  <!-- RESUMEN -->
+  <!-- MI TURNO (empleado) -->
+  <section id="tab-turno" class="tab">
+    <h2>Mi turno de hoy</h2>
+    <div id="turnoCards" class="cards"></div>
+    <h2>Mis ventas de hoy</h2>
+    <div id="turnoVentas"></div>
+  </section>
+
+  <!-- RESUMEN (solo dueño) -->
   <section id="tab-resumen" class="tab">
-    <h2>Resumen de hoy</h2>
+    <h2 id="resumenTitulo">Resumen de hoy</h2>
     <div id="resumenCards" class="cards"></div>
+    <h2>🧮 Cuadre de caja por persona</h2>
+    <div id="listaCuadre"></div>
     <h2>⚠️ Se están acabando</h2>
     <div id="listaBajos"></div>
     <h2>Ventas de hoy</h2>
     <div id="listaVentas"></div>
+  </section>
+
+  <!-- AJUSTES (solo dueño) -->
+  <section id="tab-ajustes" class="tab">
+    <h2>Personas que usan la app</h2>
+    <div id="listaUsuarios"></div>
+    <button class="pri full" onclick="formUsuario()">+ Agregar empleado</button>
+    <h2>Demostración</h2>
     <button class="sec full" onclick="confirmarReinicio()">↺ Reiniciar datos de prueba</button>
-    <p class="nota">Versión de demostración. Los datos se guardan solo en este celular.</p>
+    <p class="nota">Versión de demostración. Los datos se guardan solo en este celular.<br>
+    PIN de prueba: Dueño 1234 · Pedro 1111</p>
   </section>
 </main>
 
-<nav>
-  <button data-tab="vender" class="active" onclick="verTab('vender')"><span>🧾</span>Vender</button>
-  <button data-tab="productos" onclick="verTab('productos')"><span>📦</span>Productos</button>
-  <button data-tab="fiao" onclick="verTab('fiao')"><span>📒</span>Fiao</button>
-  <button data-tab="resumen" onclick="verTab('resumen')"><span>📊</span>Resumen</button>
-</nav>
+<nav id="nav"></nav>
 
 <div id="modal" class="modal hidden" onclick="if(event.target===this)cerrarModal()">
   <div class="box" id="modalBody"></div>
@@ -158,8 +198,15 @@ const dinero = n => 'RD$' + Number(n || 0).toLocaleString('es-DO', {maximumFract
 const nuevoId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 const fecha = ts => new Date(ts).toLocaleString('es-DO', {day:'2-digit', month:'short', hour:'numeric', minute:'2-digit'});
 const hora = ts => new Date(ts).toLocaleTimeString('es-DO', {hour:'numeric', minute:'2-digit'});
+const inicioHoy = () => { const d = new Date(); d.setHours(0, 0, 0, 0); return d.getTime(); };
 
 /* ========= DATOS DE EJEMPLO ========= */
+function usuariosDemo() {
+  return [
+    {id: 'dueno', nombre: 'Dueño', rol: 'dueno', pin: '1234'},
+    {id: nuevoId(), nombre: 'Pedro', rol: 'empleado', pin: '1111'}
+  ];
+}
 function datosDemo() {
   const p = (nombre, costo, precio, cantidad, minimo) => ({id: nuevoId(), nombre, costo, precio, cantidad, minimo});
   const productos = [
@@ -172,32 +219,44 @@ function datosDemo() {
     p('Leche (litro)', 75, 90, 12, 4),
     p('Azúcar (libra)', 35, 45, 25, 8),
     p('Café (paquetico)', 40, 50, 3, 5),
-    p('Refresco 2 litros', 90, 115, 15, 5),
+    p('Refresco 2 litros', 90, 115, 13, 5),
     p('Agua (botellita)', 15, 25, 40, 10),
     p('Plátano (unidad)', 15, 20, 40, 10),
     p('Jabón de cuaba', 30, 40, 10, 3),
-    p('Cerveza grande', 130, 175, 24, 6)
+    p('Cerveza grande', 130, 175, 23, 6)
   ];
+  const usuarios = usuariosDemo();
+  const pedro = usuarios[1];
   const clientes = [
     {id: nuevoId(), nombre: 'Doña Carmen', telefono: ''},
     {id: nuevoId(), nombre: 'Juan el mecánico', telefono: ''},
     {id: nuevoId(), nombre: 'Rosa', telefono: ''}
   ];
-  const ayer = Date.now() - 86400000;
-  const ventas = [{
-    id: nuevoId(), fecha: ayer, metodo: 'fiao', clienteId: clientes[0].id, total: 320,
-    items: [
-      {pid: productos[0].id, nombre: productos[0].nombre, cant: 5, precio: 40, costo: 32},
-      {pid: productos[2].id, nombre: productos[2].nombre, cant: 1, precio: 120, costo: 95}
-    ]
-  }];
-  const abonos = [{id: nuevoId(), fecha: ayer + 3600000, clienteId: clientes[0].id, monto: 100}];
-  return {productos, clientes, ventas, abonos};
+  const ahora = Date.now(), ayer = ahora - 86400000;
+  const item = (pr, cant) => ({pid: pr.id, nombre: pr.nombre, cant, precio: pr.precio, costo: pr.costo});
+  const ventas = [
+    {id: nuevoId(), fecha: ayer, metodo: 'fiao', clienteId: clientes[0].id, total: 320,
+     vendedorId: 'dueno', vendedorNombre: 'Dueño', items: [item(productos[0], 5), item(productos[2], 1)]},
+    {id: nuevoId(), fecha: ahora - 3600000, metodo: 'efectivo', clienteId: null, total: 175,
+     vendedorId: pedro.id, vendedorNombre: pedro.nombre, items: [item(productos[13], 1)]},
+    {id: nuevoId(), fecha: ahora - 1800000, metodo: 'transferencia', clienteId: null, total: 230,
+     vendedorId: pedro.id, vendedorNombre: pedro.nombre, items: [item(productos[9], 2)]}
+  ];
+  const abonos = [{id: nuevoId(), fecha: ayer + 3600000, clienteId: clientes[0].id, monto: 100,
+    metodo: 'efectivo', usuarioId: 'dueno', usuarioNombre: 'Dueño'}];
+  return {productos, clientes, ventas, abonos, usuarios};
 }
 
 /* ========= GUARDAR / CARGAR (en el celular) ========= */
 function cargar() {
-  try { const s = localStorage.getItem(CLAVE); if (s) return JSON.parse(s); } catch (e) {}
+  try {
+    const s = localStorage.getItem(CLAVE);
+    if (s) {
+      const d = JSON.parse(s);
+      if (!d.usuarios) d.usuarios = usuariosDemo(); // datos de la versión anterior
+      return d;
+    }
+  } catch (e) {}
   return datosDemo();
 }
 function guardar() {
@@ -205,10 +264,19 @@ function guardar() {
 }
 
 let D = cargar();
-let carrito = []; // [{pid, cant}]
+let carrito = [];        // [{pid, cant}]
+let yo = null;           // usuario que entró
+let tabActual = 'vender';
 
 const prod = id => D.productos.find(p => p.id === id);
 const cliente = id => D.clientes.find(c => c.id === id);
+const usuario = id => D.usuarios.find(u => u.id === id);
+const esDueno = () => yo && yo.rol === 'dueno';
+function soloDueno() {
+  if (esDueno()) return true;
+  aviso('🔒 Solo el dueño puede hacer esto');
+  return false;
+}
 function deuda(cid) {
   const fiado = D.ventas.filter(v => v.metodo === 'fiao' && v.clienteId === cid).reduce((a, v) => a + v.total, 0);
   const pagado = D.abonos.filter(a => a.clienteId === cid).reduce((a, x) => a + x.monto, 0);
@@ -224,14 +292,88 @@ function aviso(txt) {
 function abrirModal(html) { $('#modalBody').innerHTML = html; $('#modal').classList.remove('hidden'); }
 function cerrarModal() { $('#modal').classList.add('hidden'); }
 
-/* ========= PESTAÑAS ========= */
+/* ========= ENTRADA CON PIN ========= */
+let elegido = null, pin = '', fallos = 0, bloqueoHasta = 0;
+
+function mostrarLogin() {
+  yo = null; carrito = []; elegido = null; pin = '';
+  cerrarModal();
+  $('#login').classList.remove('hidden');
+  const lista = [...D.usuarios].sort((a, b) => (a.rol === 'dueno' ? -1 : 1) - (b.rol === 'dueno' ? -1 : 1));
+  $('#loginBody').innerHTML = `
+    <h2>🛒 Colmado Fácil</h2>
+    <p>¿Quién eres?</p>
+    <div class="ulist">${lista.map(u => `
+      <button onclick="elegirUsuario('${u.id}')"><span>${u.rol === 'dueno' ? '👑' : '🧑'} ${esc(u.nombre)}</span><small>${u.rol === 'dueno' ? 'Dueño' : 'Empleado'}</small></button>`).join('')}
+    </div>`;
+}
+function elegirUsuario(id) {
+  elegido = usuario(id); pin = '';
+  $('#loginBody').innerHTML = `
+    <h2>${elegido.rol === 'dueno' ? '👑' : '🧑'} ${esc(elegido.nombre)}</h2>
+    <p>Escribe tu PIN de 4 números</p>
+    <div class="dots" id="dots"><i></i><i></i><i></i><i></i></div>
+    <div class="pad">
+      ${[1,2,3,4,5,6,7,8,9].map(n => `<button onclick="tecla('${n}')">${n}</button>`).join('')}
+      <button class="chico" onclick="mostrarLogin()">← Volver</button>
+      <button onclick="tecla('0')">0</button>
+      <button class="chico" onclick="borrarTecla()">⌫ Borrar</button>
+    </div>`;
+}
+function pintarPuntos() {
+  document.querySelectorAll('#dots i').forEach((d, i) => d.classList.toggle('on', i < pin.length));
+}
+function borrarTecla() { pin = pin.slice(0, -1); pintarPuntos(); }
+function tecla(n) {
+  const espera = Math.ceil((bloqueoHasta - Date.now()) / 1000);
+  if (espera > 0) { aviso(`Demasiados intentos. Espera ${espera} segundos`); return; }
+  if (pin.length >= 4) return;
+  pin += n; pintarPuntos();
+  if (pin.length < 4) return;
+  if (pin === elegido.pin) {
+    yo = elegido; fallos = 0;
+    $('#login').classList.add('hidden');
+    tabActual = 'vender';
+    $('#usrTxt').textContent = (esDueno() ? '👑 ' : '🧑 ') + yo.nombre;
+    verTab('vender');
+    aviso('Bienvenido, ' + yo.nombre);
+  } else {
+    fallos++;
+    const dots = $('#dots'); dots.classList.remove('error'); void dots.offsetWidth; dots.classList.add('error');
+    pin = ''; setTimeout(pintarPuntos, 300);
+    if (fallos >= 3) { fallos = 0; bloqueoHasta = Date.now() + 30000; aviso('PIN incorrecto 3 veces. Espera 30 segundos'); }
+    else aviso('PIN incorrecto');
+  }
+}
+function salir() { mostrarLogin(); }
+
+/* ========= PESTAÑAS SEGÚN EL ROL ========= */
+function pestanas() {
+  return esDueno()
+    ? [['vender','🧾','Vender'], ['productos','📦','Productos'], ['fiao','📒','Fiao'], ['resumen','📊','Resumen'], ['ajustes','⚙️','Ajustes']]
+    : [['vender','🧾','Vender'], ['fiao','📒','Fiao'], ['turno','🧮','Mi turno']];
+}
+function renderNav() {
+  const p = pestanas();
+  const nav = $('#nav');
+  nav.style.gridTemplateColumns = `repeat(${p.length},1fr)`;
+  nav.innerHTML = p.map(([id, ico, txt]) =>
+    `<button class="${id === tabActual ? 'active' : ''}" onclick="verTab('${id}')"><span>${ico}</span>${txt}</button>`).join('');
+}
 function verTab(t) {
+  if (!yo) return;
+  if (!pestanas().some(p => p[0] === t)) t = 'vender'; // el empleado no puede abrir pestañas del dueño
+  tabActual = t;
   document.querySelectorAll('.tab').forEach(x => x.classList.toggle('active', x.id === 'tab-' + t));
-  document.querySelectorAll('nav button').forEach(b => b.classList.toggle('active', b.dataset.tab === t));
   render();
   window.scrollTo(0, 0);
 }
-function render() { renderVender(); renderProductos(); renderFiao(); renderResumen(); }
+function render() {
+  if (!yo) return;
+  renderNav(); renderVender(); renderFiao();
+  if (esDueno()) { renderProductos(); renderResumen(); renderAjustes(); }
+  else renderTurno();
+}
 
 /* ========= VENDER ========= */
 function renderVender() {
@@ -308,24 +450,26 @@ function elegirClienteFiao() {
     <h3>📒 ¿A quién se le fía?</h3>
     <p>Total de esta venta: <b>${dinero(t)}</b></p>
     <div class="pick">${D.clientes.map(c => `<button onclick="terminarVenta('fiao','${c.id}')"><span>${esc(c.nombre)}</span><small>Debe ${dinero(deuda(c.id))}</small></button>`).join('') || '<p class="vacio">Todavía no hay clientes.</p>'}</div>
-    <button class="sec full" onclick="formCliente(true)">+ Cliente nuevo</button>
+    ${esDueno() ? '<button class="sec full" onclick="formCliente(true)">+ Cliente nuevo</button>' : '<p class="nota">Solo el dueño puede agregar clientes nuevos de fiao.</p>'}
     <button class="sec full" onclick="cerrarModal()">Cancelar</button>`);
 }
 
 function terminarVenta(metodo, clienteId) {
+  if (!carrito.length) { cerrarModal(); return; }
   const items = carrito.map(it => {
     const p = prod(it.pid);
     p.cantidad -= it.cant; // se descuenta del inventario
     return {pid: p.id, nombre: p.nombre, cant: it.cant, precio: p.precio, costo: p.costo};
   });
   const total = items.reduce((a, i) => a + i.precio * i.cant, 0);
-  D.ventas.push({id: nuevoId(), fecha: Date.now(), metodo, clienteId: clienteId || null, total, items});
+  D.ventas.push({id: nuevoId(), fecha: Date.now(), metodo, clienteId: clienteId || null, total, items,
+    vendedorId: yo.id, vendedorNombre: yo.nombre});
   carrito = [];
   guardar(); cerrarModal(); render();
   aviso(metodo === 'fiao' ? `Fiao anotado a ${cliente(clienteId).nombre}: ${dinero(total)}` : 'Venta registrada: ' + dinero(total));
 }
 
-/* ========= PRODUCTOS ========= */
+/* ========= PRODUCTOS (solo dueño) ========= */
 function renderProductos() {
   const q = $('#buscarProd').value.trim().toLowerCase();
   const lista = D.productos.filter(p => p.nombre.toLowerCase().includes(q)).sort((a, b) => a.nombre.localeCompare(b.nombre));
@@ -336,6 +480,7 @@ function renderProductos() {
     </div>`).join('') || '<p class="vacio">No hay productos.</p>';
 }
 function formProducto(id) {
+  if (!soloDueno()) return;
   const p = id ? prod(id) : {nombre: '', costo: '', precio: '', cantidad: '', minimo: 5};
   abrirModal(`
     <h3>${id ? 'Editar producto' : 'Nuevo producto'}</h3>
@@ -351,6 +496,7 @@ function formProducto(id) {
     </div>`);
 }
 function guardarProducto(id) {
+  if (!soloDueno()) return;
   const nombre = $('#fNombre').value.trim();
   const costo = parseFloat($('#fCosto').value) || 0;
   const precio = parseFloat($('#fPrecio').value) || 0;
@@ -364,10 +510,12 @@ function guardarProducto(id) {
   aviso(precio < costo ? '⚠️ Guardado, pero lo estás vendiendo más barato de lo que te cuesta' : 'Producto guardado');
 }
 function confirmarBorrarProducto(id) {
+  if (!soloDueno()) return;
   abrirModal(`<h3>¿Eliminar "${esc(prod(id).nombre)}"?</h3><p>Las ventas anteriores no se borran.</p>
     <div class="acts"><button class="sec" onclick="formProducto('${id}')">No</button><button class="del" onclick="borrarProducto('${id}')">Sí, eliminar</button></div>`);
 }
 function borrarProducto(id) {
+  if (!soloDueno()) return;
   D.productos = D.productos.filter(p => p.id !== id);
   guardar(); cerrarModal(); render(); aviso('Producto eliminado');
 }
@@ -376,6 +524,7 @@ function borrarProducto(id) {
 function renderFiao() {
   const total = D.clientes.reduce((a, c) => a + Math.max(0, deuda(c.id)), 0);
   $('#totalFiao').textContent = dinero(total);
+  $('#btnNuevoCliente').style.display = esDueno() ? '' : 'none';
   const lista = [...D.clientes].sort((a, b) => deuda(b.id) - deuda(a.id));
   $('#listaClientes').innerHTML = lista.map(c => {
     const d = deuda(c.id);
@@ -386,6 +535,7 @@ function renderFiao() {
   }).join('') || '<p class="vacio">No hay clientes todavía.</p>';
 }
 function formCliente(desdeVenta) {
+  if (!soloDueno()) return;
   abrirModal(`
     <h3>Cliente nuevo</h3>
     <label>Nombre<input id="cNombre" placeholder="Ej: Doña Carmen"></label>
@@ -397,6 +547,7 @@ function formCliente(desdeVenta) {
   $('#cNombre').focus();
 }
 function guardarCliente(desdeVenta) {
+  if (!soloDueno()) return;
   const nombre = $('#cNombre').value.trim();
   const telefono = $('#cTel').value.trim();
   if (!nombre) { aviso('Escribe el nombre del cliente'); return; }
@@ -409,8 +560,9 @@ function verCliente(id) {
   const c = cliente(id), d = deuda(id);
   const movs = [
     ...D.ventas.filter(v => v.metodo === 'fiao' && v.clienteId === id)
-      .map(v => ({fecha: v.fecha, txt: v.items.map(i => i.cant + ' ' + i.nombre).join(', '), monto: v.total, tipo: 'mas'})),
-    ...D.abonos.filter(a => a.clienteId === id).map(a => ({fecha: a.fecha, txt: 'Abono', monto: a.monto, tipo: 'menos'}))
+      .map(v => ({fecha: v.fecha, txt: v.items.map(i => i.cant + ' ' + i.nombre).join(', '), quien: v.vendedorNombre, monto: v.total, tipo: 'mas'})),
+    ...D.abonos.filter(a => a.clienteId === id)
+      .map(a => ({fecha: a.fecha, txt: 'Abono' + (a.metodo === 'transferencia' ? ' por transferencia' : ' en efectivo'), quien: a.usuarioNombre, monto: a.monto, tipo: 'menos'}))
   ].sort((a, b) => b.fecha - a.fecha);
   abrirModal(`
     <h3>${esc(c.nombre)}</h3>
@@ -421,7 +573,7 @@ function verCliente(id) {
       <button class="sec" style="flex:1" onclick="enviarWhatsApp('${id}')">📲 WhatsApp</button>
     </div>
     <h2>Movimientos</h2>
-    ${movs.map(m => `<div class="mov"><span>${fecha(m.fecha)}<br><small>${esc(m.txt)}</small></span><span class="${m.tipo}">${m.tipo === 'mas' ? '+' : '−'}${dinero(m.monto)}</span></div>`).join('') || '<p class="vacio">Sin movimientos.</p>'}
+    ${movs.map(m => `<div class="mov"><span>${fecha(m.fecha)}<br><small>${esc(m.txt)}${m.quien ? ' · ' + esc(m.quien) : ''}</small></span><span class="${m.tipo}">${m.tipo === 'mas' ? '+' : '−'}${dinero(m.monto)}</span></div>`).join('') || '<p class="vacio">Sin movimientos.</p>'}
     <button class="sec full" onclick="cerrarModal()">Cerrar</button>`);
 }
 function formAbono(id) {
@@ -430,14 +582,18 @@ function formAbono(id) {
     <h3>Abono de ${esc(cliente(id).nombre)}</h3>
     <p>Debe: <b>${dinero(d)}</b></p>
     <label>¿Cuánto está pagando?<input id="aMonto" type="number" inputmode="decimal" placeholder="Ej: 200"></label>
+    <label>¿Cómo pagó?
+      <select id="aMetodo"><option value="efectivo">💵 Efectivo</option><option value="transferencia">🏦 Transferencia</option></select>
+    </label>
     <div class="acts"><button class="sec" onclick="verCliente('${id}')">Cancelar</button><button class="pri" onclick="guardarAbono('${id}')">Guardar abono</button></div>`);
   $('#aMonto').focus();
 }
 function guardarAbono(id) {
   const monto = parseFloat($('#aMonto').value) || 0;
+  const metodo = $('#aMetodo').value;
   if (monto <= 0) { aviso('Escribe cuánto está pagando'); return; }
   if (monto > deuda(id)) { aviso('El abono es mayor que lo que debe'); return; }
-  D.abonos.push({id: nuevoId(), fecha: Date.now(), clienteId: id, monto});
+  D.abonos.push({id: nuevoId(), fecha: Date.now(), clienteId: id, monto, metodo, usuarioId: yo.id, usuarioNombre: yo.nombre});
   guardar(); render(); verCliente(id); aviso('Abono guardado: ' + dinero(monto));
 }
 function enviarWhatsApp(id) {
@@ -448,10 +604,47 @@ function enviarWhatsApp(id) {
   window.open(`https://wa.me/${tel}?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
-/* ========= RESUMEN ========= */
+/* ========= CUADRE DE CAJA ========= */
+function cuadre(uid) {
+  const t0 = inicioHoy();
+  const v = D.ventas.filter(x => x.fecha >= t0 && x.vendedorId === uid);
+  const a = D.abonos.filter(x => x.fecha >= t0 && x.usuarioId === uid);
+  const suma = (arr, m, campo) => arr.filter(x => (x.metodo || 'efectivo') === m).reduce((s, x) => s + x[campo], 0);
+  const r = {
+    ventas: v, n: v.length,
+    vendido: v.reduce((s, x) => s + x.total, 0),
+    efe: suma(v, 'efectivo', 'total'), tra: suma(v, 'transferencia', 'total'), fia: suma(v, 'fiao', 'total'),
+    aboEfe: suma(a, 'efectivo', 'monto'), aboTra: suma(a, 'transferencia', 'monto')
+  };
+  r.caja = r.efe + r.aboEfe; // efectivo que debe estar en la caja
+  return r;
+}
+
+/* ========= MI TURNO (empleado) ========= */
+function renderTurno() {
+  const c = cuadre(yo.id);
+  $('#turnoCards').innerHTML = `
+    <div class="card destacada"><small>Vendí hoy (${c.n} ventas)</small><b>${dinero(c.vendido)}</b></div>
+    <div class="card"><small>💵 Efectivo</small><b>${dinero(c.efe)}</b></div>
+    <div class="card"><small>🏦 Transferencias</small><b>${dinero(c.tra)}</b></div>
+    <div class="card"><small>📒 Fiado</small><b>${dinero(c.fia)}</b></div>
+    <div class="card"><small>Abonos que cobré</small><b>${dinero(c.aboEfe + c.aboTra)}</b></div>
+    <div class="card caja"><small>💰 Efectivo que debo entregar</small><b>${dinero(c.caja)}</b></div>`;
+  $('#turnoVentas').innerHTML = listaVentasHTML([...c.ventas].reverse());
+}
+
+/* ========= RESUMEN (dueño) ========= */
+function listaVentasHTML(ventas, mostrarVendedor) {
+  const nombres = {efectivo: '💵 Efectivo', transferencia: '🏦 Transferencia', fiao: '📒 Fiao'};
+  return ventas.map(v => `
+    <div class="row" style="cursor:default"><div><b>${dinero(v.total)}</b>
+      <small>${hora(v.fecha)} · ${nombres[v.metodo]}${v.clienteId && cliente(v.clienteId) ? ' a ' + esc(cliente(v.clienteId).nombre) : ''}${mostrarVendedor && v.vendedorNombre ? ' · vendió ' + esc(v.vendedorNombre) : ''}</small>
+      <small>${esc(v.items.map(i => i.cant + ' ' + i.nombre).join(', '))}</small></div></div>`).join('')
+    || '<p class="vacio">Todavía no hay ventas hoy.</p>';
+}
 function renderResumen() {
-  const inicio = new Date(); inicio.setHours(0, 0, 0, 0);
-  const t0 = inicio.getTime();
+  const t0 = inicioHoy();
+  $('#resumenTitulo').textContent = 'Resumen de hoy, ' + new Date().toLocaleDateString('es-DO', {weekday: 'long', day: 'numeric', month: 'long'});
   const hoy = D.ventas.filter(v => v.fecha >= t0);
   const suma = m => hoy.filter(v => v.metodo === m).reduce((a, v) => a + v.total, 0);
   const vendido = hoy.reduce((a, v) => a + v.total, 0);
@@ -468,28 +661,89 @@ function renderResumen() {
     <div class="card"><small>Dinero que entró</small><b>${dinero(efe + tra + abonosHoy)}</b></div>
     <div class="card"><small>Ganancia aproximada</small><b>${dinero(ganancia)}</b></div>`;
 
+  const cuadres = D.usuarios.map(u => ({u, c: cuadre(u.id)})).filter(x => x.c.n || x.c.aboEfe || x.c.aboTra);
+  $('#listaCuadre').innerHTML = cuadres.map(({u, c}) => `
+    <div class="cuadre">
+      <b>${u.rol === 'dueno' ? '👑' : '🧑'} ${esc(u.nombre)}</b> <small style="color:var(--gris)">· ${c.n} ventas · ${dinero(c.vendido)}</small>
+      <div class="fila"><span>💵 Ventas en efectivo</span><span>${dinero(c.efe)}</span></div>
+      <div class="fila"><span>🏦 Transferencias</span><span>${dinero(c.tra)}</span></div>
+      <div class="fila"><span>📒 Fiado</span><span>${dinero(c.fia)}</span></div>
+      <div class="fila"><span>Abonos en efectivo</span><span>${dinero(c.aboEfe)}</span></div>
+      <div class="fila"><span>Abonos por transferencia</span><span>${dinero(c.aboTra)}</span></div>
+      <div class="fila caja"><span>💰 Debe tener en caja</span><span>${dinero(c.caja)}</span></div>
+    </div>`).join('') || '<p class="vacio">Nadie ha vendido hoy todavía.</p>';
+
   const bajos = D.productos.filter(p => p.cantidad <= p.minimo).sort((a, b) => a.cantidad - b.cantidad);
   $('#listaBajos').innerHTML = bajos.map(p => `
     <div class="row" onclick="formProducto('${p.id}')"><b>${esc(p.nombre)}</b><span class="badge bajo">${p.cantidad <= 0 ? 'Agotado' : 'Quedan ' + p.cantidad}</span></div>`).join('')
     || '<p class="vacio">Todo bien surtido 👍</p>';
 
-  const nombres = {efectivo: '💵 Efectivo', transferencia: '🏦 Transferencia', fiao: '📒 Fiao'};
-  $('#listaVentas').innerHTML = [...hoy].reverse().map(v => `
-    <div class="row" style="cursor:default"><div><b>${dinero(v.total)}</b>
-      <small>${hora(v.fecha)} · ${nombres[v.metodo]}${v.clienteId && cliente(v.clienteId) ? ' a ' + esc(cliente(v.clienteId).nombre) : ''}</small>
-      <small>${esc(v.items.map(i => i.cant + ' ' + i.nombre).join(', '))}</small></div></div>`).join('')
-    || '<p class="vacio">Todavía no hay ventas hoy.</p>';
+  $('#listaVentas').innerHTML = listaVentasHTML([...hoy].reverse(), true);
+}
+
+/* ========= AJUSTES: USUARIOS (dueño) ========= */
+function renderAjustes() {
+  const lista = [...D.usuarios].sort((a, b) => (a.rol === 'dueno' ? -1 : 1) - (b.rol === 'dueno' ? -1 : 1));
+  $('#listaUsuarios').innerHTML = lista.map(u => `
+    <div class="row" onclick="formUsuario('${u.id}')">
+      <div><b>${u.rol === 'dueno' ? '👑' : '🧑'} ${esc(u.nombre)}</b><small>${u.rol === 'dueno' ? 'Dueño: puede hacer todo' : 'Empleado: solo vender, fiar y cobrar abonos'}</small></div>
+      <span class="badge">Editar</span>
+    </div>`).join('');
+}
+function formUsuario(id) {
+  if (!soloDueno()) return;
+  const u = id ? usuario(id) : {nombre: '', rol: 'empleado', pin: ''};
+  abrirModal(`
+    <h3>${id ? 'Editar ' + (u.rol === 'dueno' ? 'dueño' : 'empleado') : 'Nuevo empleado'}</h3>
+    <label>Nombre<input id="uNombre" value="${esc(u.nombre)}" placeholder="Ej: Pedro"></label>
+    <label>PIN de 4 números<input id="uPin" type="password" inputmode="numeric" maxlength="4" placeholder="${id ? 'Déjalo vacío para no cambiarlo' : 'Ej: 4821'}"></label>
+    <div class="acts">
+      ${id && u.rol !== 'dueno' ? `<button class="del" onclick="confirmarBorrarUsuario('${id}')">Eliminar</button>` : ''}
+      <button class="sec" onclick="cerrarModal()">Cancelar</button>
+      <button class="pri" onclick="guardarUsuario('${id || ''}')">Guardar</button>
+    </div>`);
+}
+function guardarUsuario(id) {
+  if (!soloDueno()) return;
+  const nombre = $('#uNombre').value.trim();
+  const nuevoPin = $('#uPin').value.trim();
+  if (!nombre) { aviso('Escribe el nombre'); return; }
+  if ((!id || nuevoPin) && !/^\d{4}$/.test(nuevoPin)) { aviso('El PIN debe ser de 4 números'); return; }
+  if (nuevoPin && /^(\d)\1{3}$/.test(nuevoPin) && esDueno() && id === yo.id) { aviso('⚠️ Usa un PIN más difícil que 4 números iguales'); return; }
+  if (id) {
+    const u = usuario(id);
+    u.nombre = nombre;
+    if (nuevoPin) u.pin = nuevoPin;
+    if (u.id === yo.id) $('#usrTxt').textContent = '👑 ' + u.nombre;
+  } else {
+    D.usuarios.push({id: nuevoId(), nombre, rol: 'empleado', pin: nuevoPin});
+  }
+  guardar(); cerrarModal(); render(); aviso('Guardado');
+}
+function confirmarBorrarUsuario(id) {
+  if (!soloDueno()) return;
+  abrirModal(`<h3>¿Eliminar a ${esc(usuario(id).nombre)}?</h3><p>Ya no podrá entrar a la app. Sus ventas anteriores se quedan guardadas.</p>
+    <div class="acts"><button class="sec" onclick="formUsuario('${id}')">No</button><button class="del" onclick="borrarUsuario('${id}')">Sí, eliminar</button></div>`);
+}
+function borrarUsuario(id) {
+  if (!soloDueno()) return;
+  if (usuario(id).rol === 'dueno') { aviso('No se puede eliminar al dueño'); return; }
+  D.usuarios = D.usuarios.filter(u => u.id !== id);
+  guardar(); cerrarModal(); render(); aviso('Empleado eliminado');
 }
 function confirmarReinicio() {
-  abrirModal(`<h3>¿Reiniciar la demostración?</h3><p>Se borra todo lo que hayas anotado y vuelven los productos de ejemplo.</p>
+  if (!soloDueno()) return;
+  abrirModal(`<h3>¿Reiniciar la demostración?</h3><p>Se borra todo lo que hayas anotado, vuelven los productos de ejemplo y los PIN de prueba (Dueño 1234, Pedro 1111).</p>
     <div class="acts"><button class="sec" onclick="cerrarModal()">Cancelar</button><button class="del" onclick="reiniciar()">Sí, reiniciar</button></div>`);
 }
-function reiniciar() { D = datosDemo(); carrito = []; guardar(); cerrarModal(); render(); aviso('Datos de prueba restaurados'); }
+function reiniciar() {
+  if (!soloDueno()) return;
+  D = datosDemo(); guardar(); mostrarLogin(); aviso('Datos de prueba restaurados');
+}
 
 /* ========= INICIO ========= */
-$('#hoyTxt').textContent = new Date().toLocaleDateString('es-DO', {weekday: 'long', day: 'numeric', month: 'long'});
 guardar();
-render();
+mostrarLogin();
 </script>
 </body>
 </html>
