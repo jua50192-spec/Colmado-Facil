@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0f7b3f">
+<title>Colmado Fácil</title>
+<style>
+  :root{
+    --verde:#0f7b3f; --verde-claro:#e6f4ec; --rojo:#c62828; --rojo-claro:#fdecea;
+    --amarillo:#f9a825; --texto:#1d2a22; --gris:#6b7a70; --fondo:#f4f6f5; --blanco:#fff; --borde:#dfe5e1;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--fondo);color:var(--texto);font-size:16px}
+  header{background:var(--verde);color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:5}
+  header h1{margin:0;font-size:20px}
+  header small{opacity:.85}
+  main{max-width:640px;margin:0 auto;padding:12px 16px 96px}
+  .tab{display:none}.tab.active{display:block}
+  h2{font-size:18px;margin:16px 0 8px}
+  input{width:100%;padding:12px;border:1px solid var(--borde);border-radius:10px;font-size:16px;background:#fff}
+  label{display:block;margin:10px 0;font-size:14px;color:var(--gris)}
+  label input{margin-top:4px;color:var(--texto)}
+  button{font-family:inherit;font-size:16px;cursor:pointer}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:10px}
+  .prod{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:10px;text-align:left;display:flex;flex-direction:column;gap:4px;min-height:92px}
+  .prod:active{background:var(--verde-claro)}
+  .prod.agotado{opacity:.45}
+  .pn{font-weight:600;font-size:15px}
+  .pp{color:var(--verde);font-weight:700}
+  .ps{font-size:12px;color:var(--gris)}
+  .bajo{color:var(--rojo)!important;font-weight:700}
+  .cart{background:#fff;border:2px solid var(--verde);border-radius:14px;padding:12px;margin-top:16px}
+  .cart h2{margin-top:0}
+  .line{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px dashed var(--borde)}
+  .ln{flex:1;font-size:15px}
+  .qty{display:flex;align-items:center;gap:8px}
+  .qty button{width:34px;height:34px;border-radius:50%;border:1px solid var(--borde);background:var(--fondo);font-size:20px;line-height:1}
+  .lt{min-width:80px;text-align:right;font-weight:600}
+  .total{font-size:22px;text-align:right;margin:10px 0}
+  .pay{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+  .pay button{padding:14px 4px;border:none;border-radius:10px;color:#fff;font-weight:700;font-size:15px}
+  .b-efe{background:var(--verde)}.b-tra{background:#1565c0}.b-fia{background:var(--amarillo);color:#3b2a00!important}
+  .cart.vacia .pay button{opacity:.4}
+  .vacio{color:var(--gris);text-align:center;padding:12px}
+  .row{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:pointer}
+  .row small{display:block;color:var(--gris);font-size:13px;margin-top:2px}
+  .badge{background:var(--verde-claro);color:var(--verde);border-radius:20px;padding:6px 12px;font-weight:700;white-space:nowrap}
+  .badge.bajo{background:var(--rojo-claro)}
+  .badge.debe{background:#fff4d6;color:#7a5200}
+  .pri,.sec,.del{padding:12px 16px;border-radius:10px;font-weight:600}
+  .pri{background:var(--verde);color:#fff;border:none}
+  .sec{background:#fff;color:var(--texto);border:1px solid var(--borde)}
+  .del{background:var(--rojo-claro);color:var(--rojo);border:none}
+  .full{width:100%;margin-top:8px}
+  .acts{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:12px}
+  .cards{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .card{background:#fff;border:1px solid var(--borde);border-radius:12px;padding:12px}
+  .card small{color:var(--gris);display:block}
+  .card b{font-size:20px}
+  .card.destacada{grid-column:1/-1;background:var(--verde);color:#fff;border:none}
+  .card.destacada small{color:#d6f0e0}
+  .card.destacada b{font-size:28px}
+  .resumen-top{background:#fff4d6;border-radius:12px;padding:12px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+  nav{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--borde);display:grid;grid-template-columns:repeat(4,1fr);z-index:5}
+  nav button{background:none;border:none;padding:8px 2px 10px;font-size:12px;color:var(--gris);display:flex;flex-direction:column;align-items:center;gap:2px}
+  nav button span{font-size:22px}
+  nav button.active{color:var(--verde);font-weight:700}
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center;z-index:10}
+  .modal.hidden{display:none}
+  .box{background:#fff;width:100%;max-width:640px;border-radius:18px 18px 0 0;padding:16px;max-height:88vh;overflow:auto}
+  .box h3{margin:4px 0 8px;font-size:19px}
+  .big{font-size:30px;font-weight:800;color:var(--verde);margin:6px 0}
+  .devuelta{font-size:20px;font-weight:700;min-height:26px}
+  .devuelta.bien{color:var(--verde)}.devuelta.mal{color:var(--rojo)}
+  .pick{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+  .pick button{text-align:left;padding:12px;border:1px solid var(--borde);border-radius:10px;background:#fff;display:flex;justify-content:space-between}
+  .pick small{color:var(--gris)}
+  .mov{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--borde);font-size:14px}
+  .mov .mas{color:var(--rojo);font-weight:700}.mov .menos{color:var(--verde);font-weight:700}
+  #toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:#222;color:#fff;padding:10px 16px;border-radius:20px;font-size:14px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:20;max-width:90%;text-align:center}
+  #toast.show{opacity:1}
+  .nota{font-size:13px;color:var(--gris);text-align:center;margin-top:20px}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🛒 Colmado Fácil</h1>
+  <small id="hoyTxt"></small>
+</header>
+
+<main>
+  <!-- VENDER -->
+  <section id="tab-vender" class="tab active">
+    <input id="buscar" type="search" placeholder="🔍 Buscar producto..." oninput="renderVender()">
+    <div id="gridProd" class="grid"></div>
+    <div id="cartBox" class="cart">
+      <h2>Venta actual</h2>
+      <div id="cartList"></div>
+      <div class="total">Total: <b id="cartTotal">RD$0</b></div>
+      <div class="pay">
+        <button class="b-efe" onclick="pagar('efectivo')">💵 Efectivo</button>
+        <button class="b-tra" onclick="pagar('transferencia')">🏦 Transfer.</button>
+        <button class="b-fia" onclick="pagar('fiao')">📒 Fiao</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTOS -->
+  <section id="tab-productos" class="tab">
+    <button class="pri full" onclick="formProducto()">+ Agregar producto</button>
+    <h2>Mercancía</h2>
+    <input id="buscarProd" type="search" placeholder="🔍 Buscar..." oninput="renderProductos()">
+    <div id="listaProd" style="margin-top:10px"></div>
+  </section>
+
+  <!-- FIAO -->
+  <section id="tab-fiao" class="tab">
+    <div class="resumen-top"><span>Total por cobrar</span><b id="totalFiao" style="font-size:22px"></b></div>
+    <button class="pri full" onclick="formCliente(false)">+ Cliente nuevo</button>
+    <h2>Clientes</h2>
+    <div id="listaClientes"></div>
+  </section>
+
+  <!-- RESUMEN -->
+  <section id="tab-resumen" class="tab">
+    <h2>Resumen de hoy</h2>
+    <div id="resumenCards" class="cards"></div>
+    <h2>⚠️ Se están acabando</h2>
+    <div id="listaBajos"></div>
+    <h2>Ventas de hoy</h2>
+    <div id="listaVentas"></div>
+    <button class="sec full" onclick="confirmarReinicio()">↺ Reiniciar datos de prueba</button>
+    <p class="nota">Versión de demostración. Los datos se guardan solo en este celular.</p>
+  </section>
+</main>
+
+<nav>
+  <button data-tab="vender" class="active" onclick="verTab('vender')"><span>🧾</span>Vender</button>
+  <button data-tab="productos" onclick="verTab('productos')"><span>📦</span>Productos</button>
+  <button data-tab="fiao" onclick="verTab('fiao')"><span>📒</span>Fiao</button>
+  <button data-tab="resumen" onclick="verTab('resumen')"><span>📊</span>Resumen</button>
+</nav>
+
+<div id="modal" class="modal hidden" onclick="if(event.target===this)cerrarModal()">
+  <div class="box" id="modalBody"></div>
+</div>
+<div id="toast"></div>
+
+<script>
+/* ========= UTILIDADES ========= */
+const CLAVE = 'colmadoFacil_v1';
+const $ = s => document.querySelector(s);
+// Evita que un texto escrito por el usuario se convierta en código (seguridad)
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const dinero = n => 'RD$' + Number(n || 0).toLocaleString('es-DO', {maximumFractionDigits: 2});
+const nuevoId = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const fecha = ts => new Date(ts).toLocaleString('es-DO', {day:'2-digit', month:'short', hour:'numeric', minute:'2-digit'});
+const hora = ts => new Date(ts).toLocaleTimeString('es-DO', {hour:'numeric', minute:'2-digit'});
+
+/* ========= DATOS DE EJEMPLO ========= */
+function datosDemo() {
+  const p = (nombre, costo, precio, cantidad, minimo) => ({id: nuevoId(), nombre, costo, precio, cantidad, minimo});
+  const productos = [
+    p('Arroz (libra)', 32, 40, 50, 10),
+    p('Habichuelas rojas (libra)', 70, 85, 30, 8),
+    p('Aceite (botella pequeña)', 95, 120, 4, 5),
+    p('Salami (libra)', 150, 190, 8, 3),
+    p('Huevo (unidad)', 7, 10, 120, 30),
+    p('Pan de agua', 4, 5, 60, 20),
+    p('Leche (litro)', 75, 90, 12, 4),
+    p('Azúcar (libra)', 35, 45, 25, 8),
+    p('Café (paquetico)', 40, 50, 3, 5),
+    p('Refresco 2 litros', 90, 115, 15, 5),
+    p('Agua (botellita)', 15, 25, 40, 10),
+    p('Plátano (unidad)', 15, 20, 40, 10),
+    p('Jabón de cuaba', 30, 40, 10, 3),
+    p('Cerveza grande', 130, 175, 24, 6)
+  ];
+  const clientes = [
+    {id: nuevoId(), nombre: 'Doña Carmen', telefono: ''},
+    {id: nuevoId(), nombre: 'Juan el mecánico', telefono: ''},
+    {id: nuevoId(), nombre: 'Rosa', telefono: ''}
+  ];
+  const ayer = Date.now() - 86400000;
+  const ventas = [{
+    id: nuevoId(), fecha: ayer, metodo: 'fiao', clienteId: clientes[0].id, total: 320,
+    items: [
+      {pid: productos[0].id, nombre: productos[0].nombre, cant: 5, precio: 40, costo: 32},
+      {pid: productos[2].id, nombre: productos[2].nombre, cant: 1, precio: 120, costo: 95}
+    ]
+  }];
+  const abonos = [{id: nuevoId(), fecha: ayer + 3600000, clienteId: clientes[0].id, monto: 100}];
+  return {productos, clientes, ventas, abonos};
+}
+
+/* ========= GUARDAR / CARGAR (en el celular) ========= */
+function cargar() {
+  try { const s = localStorage.getItem(CLAVE); if (s) return JSON.parse(s); } catch (e) {}
+  return datosDemo();
+}
+function guardar() {
+  try { localStorage.setItem(CLAVE, JSON.stringify(D)); } catch (e) {}
+}
+
+let D = cargar();
+let carrito = []; // [{pid, cant}]
+
+const prod = id => D.productos.find(p => p.id === id);
+const cliente = id => D.clientes.find(c => c.id === id);
+function deuda(cid) {
+  const fiado = D.ventas.filter(v => v.metodo === 'fiao' && v.clienteId === cid).reduce((a, v) => a + v.total, 0);
+  const pagado = D.abonos.filter(a => a.clienteId === cid).reduce((a, x) => a + x.monto, 0);
+  return fiado - pagado;
+}
+
+/* ========= AVISOS Y VENTANAS ========= */
+let toastTimer;
+function aviso(txt) {
+  const t = $('#toast'); t.textContent = txt; t.classList.add('show');
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 2300);
+}
+function abrirModal(html) { $('#modalBody').innerHTML = html; $('#modal').classList.remove('hidden'); }
+function cerrarModal() { $('#modal').classList.add('hidden'); }
+
+/* ========= PESTAÑAS ========= */
+function verTab(t) {
+  document.querySelectorAll('.tab').forEach(x => x.classList.toggle('active', x.id === 'tab-' + t));
+  document.querySelectorAll('nav button').forEach(b => b.classList.toggle('active', b.dataset.tab === t));
+  render();
+  window.scrollTo(0, 0);
+}
+function render() { renderVender(); renderProductos(); renderFiao(); renderResumen(); }
+
+/* ========= VENDER ========= */
+function renderVender() {
+  carrito = carrito.filter(it => prod(it.pid));
+  const q = $('#buscar').value.trim().toLowerCase();
+  const lista = D.productos.filter(p => p.nombre.toLowerCase().includes(q)).sort((a, b) => a.nombre.localeCompare(b.nombre));
+  $('#gridProd').innerHTML = lista.map(p => `
+    <button class="prod ${p.cantidad <= 0 ? 'agotado' : ''}" onclick="agregar('${p.id}')">
+      <span class="pn">${esc(p.nombre)}</span>
+      <span class="pp">${dinero(p.precio)}</span>
+      <span class="ps ${p.cantidad <= p.minimo ? 'bajo' : ''}">${p.cantidad <= 0 ? 'Agotado' : 'Quedan ' + p.cantidad}</span>
+    </button>`).join('') || '<p class="vacio">No se encontró ese producto.</p>';
+
+  $('#cartList').innerHTML = carrito.length ? carrito.map(it => {
+    const p = prod(it.pid);
+    return `<div class="line">
+      <span class="ln">${esc(p.nombre)}</span>
+      <span class="qty"><button onclick="cambiar('${it.pid}',-1)">−</button><b>${it.cant}</b><button onclick="cambiar('${it.pid}',1)">+</button></span>
+      <span class="lt">${dinero(p.precio * it.cant)}</span>
+    </div>`;
+  }).join('') : '<p class="vacio">Toca un producto para agregarlo a la venta.</p>';
+  $('#cartTotal').textContent = dinero(totalCarrito());
+  $('#cartBox').classList.toggle('vacia', !carrito.length);
+}
+function totalCarrito() { return carrito.reduce((a, it) => a + prod(it.pid).precio * it.cant, 0); }
+
+function agregar(pid) {
+  const p = prod(pid);
+  const it = carrito.find(x => x.pid === pid);
+  const actual = it ? it.cant : 0;
+  if (actual + 1 > p.cantidad) { aviso('No queda suficiente: ' + p.nombre); return; }
+  if (it) it.cant++; else carrito.push({pid, cant: 1});
+  renderVender();
+}
+function cambiar(pid, d) {
+  const it = carrito.find(x => x.pid === pid); if (!it) return;
+  if (d > 0 && it.cant + 1 > prod(pid).cantidad) { aviso('No queda suficiente'); return; }
+  it.cant += d;
+  if (it.cant <= 0) carrito = carrito.filter(x => x.pid !== pid);
+  renderVender();
+}
+
+function pagar(metodo) {
+  if (!carrito.length) { aviso('Primero agrega productos'); return; }
+  const t = totalCarrito();
+  if (metodo === 'efectivo') {
+    abrirModal(`
+      <h3>💵 Cobro en efectivo</h3>
+      <p class="big">${dinero(t)}</p>
+      <label>¿Con cuánto paga el cliente? (opcional)
+        <input id="recibido" type="number" inputmode="decimal" placeholder="Ej: 500">
+      </label>
+      <p id="devuelta" class="devuelta"></p>
+      <div class="acts"><button class="sec" onclick="cerrarModal()">Cancelar</button><button class="pri" onclick="terminarVenta('efectivo')">Cobrar</button></div>`);
+    $('#recibido').addEventListener('input', e => {
+      const r = parseFloat(e.target.value), d = $('#devuelta');
+      if (!r) { d.textContent = ''; return; }
+      d.textContent = r < t ? 'Faltan ' + dinero(t - r) : 'Devuelta: ' + dinero(r - t);
+      d.className = 'devuelta ' + (r < t ? 'mal' : 'bien');
+    });
+  } else if (metodo === 'transferencia') {
+    abrirModal(`
+      <h3>🏦 Cobro por transferencia</h3>
+      <p class="big">${dinero(t)}</p>
+      <p>Confirma que la transferencia llegó antes de entregar la mercancía.</p>
+      <div class="acts"><button class="sec" onclick="cerrarModal()">Cancelar</button><button class="pri" onclick="terminarVenta('transferencia')">Ya llegó, cobrar</button></div>`);
+  } else {
+    elegirClienteFiao();
+  }
+}
+function elegirClienteFiao() {
+  const t = totalCarrito();
+  abrirModal(`
+    <h3>📒 ¿A quién se le fía?</h3>
+    <p>Total de esta venta: <b>${dinero(t)}</b></p>
+    <div class="pick">${D.clientes.map(c => `<button onclick="terminarVenta('fiao','${c.id}')"><span>${esc(c.nombre)}</span><small>Debe ${dinero(deuda(c.id))}</small></button>`).join('') || '<p class="vacio">Todavía no hay clientes.</p>'}</div>
+    <button class="sec full" onclick="formCliente(true)">+ Cliente nuevo</button>
+    <button class="sec full" onclick="cerrarModal()">Cancelar</button>`);
+}
+
+function terminarVenta(metodo, clienteId) {
+  const items = carrito.map(it => {
+    const p = prod(it.pid);
+    p.cantidad -= it.cant; // se descuenta del inventario
+    return {pid: p.id, nombre: p.nombre, cant: it.cant, precio: p.precio, costo: p.costo};
+  });
+  const total = items.reduce((a, i) => a + i.precio * i.cant, 0);
+  D.ventas.push({id: nuevoId(), fecha: Date.now(), metodo, clienteId: clienteId || null, total, items});
+  carrito = [];
+  guardar(); cerrarModal(); render();
+  aviso(metodo === 'fiao' ? `Fiao anotado a ${cliente(clienteId).nombre}: ${dinero(total)}` : 'Venta registrada: ' + dinero(total));
+}
+
+/* ========= PRODUCTOS ========= */
+function renderProductos() {
+  const q = $('#buscarProd').value.trim().toLowerCase();
+  const lista = D.productos.filter(p => p.nombre.toLowerCase().includes(q)).sort((a, b) => a.nombre.localeCompare(b.nombre));
+  $('#listaProd').innerHTML = lista.map(p => `
+    <div class="row" onclick="formProducto('${p.id}')">
+      <div><b>${esc(p.nombre)}</b><small>Compra ${dinero(p.costo)} · Venta ${dinero(p.precio)} · Gana ${dinero(p.precio - p.costo)}</small></div>
+      <span class="badge ${p.cantidad <= p.minimo ? 'bajo' : ''}">${p.cantidad}</span>
+    </div>`).join('') || '<p class="vacio">No hay productos.</p>';
+}
+function formProducto(id) {
+  const p = id ? prod(id) : {nombre: '', costo: '', precio: '', cantidad: '', minimo: 5};
+  abrirModal(`
+    <h3>${id ? 'Editar producto' : 'Nuevo producto'}</h3>
+    <label>Nombre<input id="fNombre" value="${esc(p.nombre)}" placeholder="Ej: Arroz (libra)"></label>
+    <label>Precio de compra (lo que te cuesta)<input id="fCosto" type="number" inputmode="decimal" value="${esc(p.costo)}"></label>
+    <label>Precio de venta<input id="fPrecio" type="number" inputmode="decimal" value="${esc(p.precio)}"></label>
+    <label>Cantidad que hay<input id="fCant" type="number" inputmode="numeric" value="${esc(p.cantidad)}"></label>
+    <label>Avisarme cuando queden menos de<input id="fMin" type="number" inputmode="numeric" value="${esc(p.minimo)}"></label>
+    <div class="acts">
+      ${id ? `<button class="del" onclick="confirmarBorrarProducto('${id}')">Eliminar</button>` : ''}
+      <button class="sec" onclick="cerrarModal()">Cancelar</button>
+      <button class="pri" onclick="guardarProducto('${id || ''}')">Guardar</button>
+    </div>`);
+}
+function guardarProducto(id) {
+  const nombre = $('#fNombre').value.trim();
+  const costo = parseFloat($('#fCosto').value) || 0;
+  const precio = parseFloat($('#fPrecio').value) || 0;
+  const cantidad = parseInt($('#fCant').value) || 0;
+  const minimo = parseInt($('#fMin').value) || 0;
+  if (!nombre) { aviso('Escribe el nombre del producto'); return; }
+  if (precio <= 0) { aviso('Escribe el precio de venta'); return; }
+  if (id) Object.assign(prod(id), {nombre, costo, precio, cantidad, minimo});
+  else D.productos.push({id: nuevoId(), nombre, costo, precio, cantidad, minimo});
+  guardar(); cerrarModal(); render();
+  aviso(precio < costo ? '⚠️ Guardado, pero lo estás vendiendo más barato de lo que te cuesta' : 'Producto guardado');
+}
+function confirmarBorrarProducto(id) {
+  abrirModal(`<h3>¿Eliminar "${esc(prod(id).nombre)}"?</h3><p>Las ventas anteriores no se borran.</p>
+    <div class="acts"><button class="sec" onclick="formProducto('${id}')">No</button><button class="del" onclick="borrarProducto('${id}')">Sí, eliminar</button></div>`);
+}
+function borrarProducto(id) {
+  D.productos = D.productos.filter(p => p.id !== id);
+  guardar(); cerrarModal(); render(); aviso('Producto eliminado');
+}
+
+/* ========= FIAO ========= */
+function renderFiao() {
+  const total = D.clientes.reduce((a, c) => a + Math.max(0, deuda(c.id)), 0);
+  $('#totalFiao').textContent = dinero(total);
+  const lista = [...D.clientes].sort((a, b) => deuda(b.id) - deuda(a.id));
+  $('#listaClientes').innerHTML = lista.map(c => {
+    const d = deuda(c.id);
+    return `<div class="row" onclick="verCliente('${c.id}')">
+      <div><b>${esc(c.nombre)}</b><small>${c.telefono ? esc(c.telefono) : 'Sin teléfono'}</small></div>
+      <span class="badge ${d > 0 ? 'debe' : ''}">${d > 0 ? dinero(d) : 'Al día'}</span>
+    </div>`;
+  }).join('') || '<p class="vacio">No hay clientes todavía.</p>';
+}
+function formCliente(desdeVenta) {
+  abrirModal(`
+    <h3>Cliente nuevo</h3>
+    <label>Nombre<input id="cNombre" placeholder="Ej: Doña Carmen"></label>
+    <label>Teléfono / WhatsApp (opcional)<input id="cTel" type="tel" inputmode="tel" placeholder="809-000-0000"></label>
+    <div class="acts">
+      <button class="sec" onclick="${desdeVenta ? 'elegirClienteFiao()' : 'cerrarModal()'}">Cancelar</button>
+      <button class="pri" onclick="guardarCliente(${desdeVenta})">Guardar</button>
+    </div>`);
+  $('#cNombre').focus();
+}
+function guardarCliente(desdeVenta) {
+  const nombre = $('#cNombre').value.trim();
+  const telefono = $('#cTel').value.trim();
+  if (!nombre) { aviso('Escribe el nombre del cliente'); return; }
+  const c = {id: nuevoId(), nombre, telefono};
+  D.clientes.push(c); guardar();
+  if (desdeVenta) terminarVenta('fiao', c.id);
+  else { cerrarModal(); render(); aviso('Cliente guardado'); }
+}
+function verCliente(id) {
+  const c = cliente(id), d = deuda(id);
+  const movs = [
+    ...D.ventas.filter(v => v.metodo === 'fiao' && v.clienteId === id)
+      .map(v => ({fecha: v.fecha, txt: v.items.map(i => i.cant + ' ' + i.nombre).join(', '), monto: v.total, tipo: 'mas'})),
+    ...D.abonos.filter(a => a.clienteId === id).map(a => ({fecha: a.fecha, txt: 'Abono', monto: a.monto, tipo: 'menos'}))
+  ].sort((a, b) => b.fecha - a.fecha);
+  abrirModal(`
+    <h3>${esc(c.nombre)}</h3>
+    <small>Debe en total</small>
+    <p class="big" style="color:${d > 0 ? 'var(--rojo)' : 'var(--verde)'}">${dinero(d)}</p>
+    <div class="acts" style="justify-content:stretch">
+      <button class="pri" style="flex:1" onclick="formAbono('${id}')">Registrar abono</button>
+      <button class="sec" style="flex:1" onclick="enviarWhatsApp('${id}')">📲 WhatsApp</button>
+    </div>
+    <h2>Movimientos</h2>
+    ${movs.map(m => `<div class="mov"><span>${fecha(m.fecha)}<br><small>${esc(m.txt)}</small></span><span class="${m.tipo}">${m.tipo === 'mas' ? '+' : '−'}${dinero(m.monto)}</span></div>`).join('') || '<p class="vacio">Sin movimientos.</p>'}
+    <button class="sec full" onclick="cerrarModal()">Cerrar</button>`);
+}
+function formAbono(id) {
+  const d = deuda(id);
+  abrirModal(`
+    <h3>Abono de ${esc(cliente(id).nombre)}</h3>
+    <p>Debe: <b>${dinero(d)}</b></p>
+    <label>¿Cuánto está pagando?<input id="aMonto" type="number" inputmode="decimal" placeholder="Ej: 200"></label>
+    <div class="acts"><button class="sec" onclick="verCliente('${id}')">Cancelar</button><button class="pri" onclick="guardarAbono('${id}')">Guardar abono</button></div>`);
+  $('#aMonto').focus();
+}
+function guardarAbono(id) {
+  const monto = parseFloat($('#aMonto').value) || 0;
+  if (monto <= 0) { aviso('Escribe cuánto está pagando'); return; }
+  if (monto > deuda(id)) { aviso('El abono es mayor que lo que debe'); return; }
+  D.abonos.push({id: nuevoId(), fecha: Date.now(), clienteId: id, monto});
+  guardar(); render(); verCliente(id); aviso('Abono guardado: ' + dinero(monto));
+}
+function enviarWhatsApp(id) {
+  const c = cliente(id);
+  const msg = `Hola ${c.nombre}, le saludamos del colmado. Su cuenta pendiente es de ${dinero(deuda(id))}. ¡Gracias por su preferencia!`;
+  let tel = (c.telefono || '').replace(/\D/g, '');
+  if (tel.length === 10) tel = '1' + tel; // números de RD
+  window.open(`https://wa.me/${tel}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+/* ========= RESUMEN ========= */
+function renderResumen() {
+  const inicio = new Date(); inicio.setHours(0, 0, 0, 0);
+  const t0 = inicio.getTime();
+  const hoy = D.ventas.filter(v => v.fecha >= t0);
+  const suma = m => hoy.filter(v => v.metodo === m).reduce((a, v) => a + v.total, 0);
+  const vendido = hoy.reduce((a, v) => a + v.total, 0);
+  const ganancia = hoy.reduce((a, v) => a + v.items.reduce((b, i) => b + (i.precio - i.costo) * i.cant, 0), 0);
+  const abonosHoy = D.abonos.filter(a => a.fecha >= t0).reduce((a, x) => a + x.monto, 0);
+  const efe = suma('efectivo'), tra = suma('transferencia'), fia = suma('fiao');
+
+  $('#resumenCards').innerHTML = `
+    <div class="card destacada"><small>Vendido hoy (${hoy.length} ventas)</small><b>${dinero(vendido)}</b></div>
+    <div class="card"><small>💵 Efectivo</small><b>${dinero(efe)}</b></div>
+    <div class="card"><small>🏦 Transferencias</small><b>${dinero(tra)}</b></div>
+    <div class="card"><small>📒 Fiado hoy</small><b>${dinero(fia)}</b></div>
+    <div class="card"><small>Abonos cobrados</small><b>${dinero(abonosHoy)}</b></div>
+    <div class="card"><small>Dinero que entró</small><b>${dinero(efe + tra + abonosHoy)}</b></div>
+    <div class="card"><small>Ganancia aproximada</small><b>${dinero(ganancia)}</b></div>`;
+
+  const bajos = D.productos.filter(p => p.cantidad <= p.minimo).sort((a, b) => a.cantidad - b.cantidad);
+  $('#listaBajos').innerHTML = bajos.map(p => `
+    <div class="row" onclick="formProducto('${p.id}')"><b>${esc(p.nombre)}</b><span class="badge bajo">${p.cantidad <= 0 ? 'Agotado' : 'Quedan ' + p.cantidad}</span></div>`).join('')
+    || '<p class="vacio">Todo bien surtido 👍</p>';
+
+  const nombres = {efectivo: '💵 Efectivo', transferencia: '🏦 Transferencia', fiao: '📒 Fiao'};
+  $('#listaVentas').innerHTML = [...hoy].reverse().map(v => `
+    <div class="row" style="cursor:default"><div><b>${dinero(v.total)}</b>
+      <small>${hora(v.fecha)} · ${nombres[v.metodo]}${v.clienteId && cliente(v.clienteId) ? ' a ' + esc(cliente(v.clienteId).nombre) : ''}</small>
+      <small>${esc(v.items.map(i => i.cant + ' ' + i.nombre).join(', '))}</small></div></div>`).join('')
+    || '<p class="vacio">Todavía no hay ventas hoy.</p>';
+}
+function confirmarReinicio() {
+  abrirModal(`<h3>¿Reiniciar la demostración?</h3><p>Se borra todo lo que hayas anotado y vuelven los productos de ejemplo.</p>
+    <div class="acts"><button class="sec" onclick="cerrarModal()">Cancelar</button><button class="del" onclick="reiniciar()">Sí, reiniciar</button></div>`);
+}
+function reiniciar() { D = datosDemo(); carrito = []; guardar(); cerrarModal(); render(); aviso('Datos de prueba restaurados'); }
+
+/* ========= INICIO ========= */
+$('#hoyTxt').textContent = new Date().toLocaleDateString('es-DO', {weekday: 'long', day: 'numeric', month: 'long'});
+guardar();
+render();
+</script>
+</body>
+</html>
